@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/24 12:02:16 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 08:47:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_info
 }	t_info;
 
 //cub3d
-int		check_arg(char *filename);
+int		is_extension_valid(char *filename);
 void	err_msg(char *s);
 void	check_comma(char *str);
 void	check_file_order(char *line);

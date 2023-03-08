@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:25:42 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/24 12:02:35 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 08:47:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_arg(char *filename)
+int	is_extension_valid(char *filename)
 {
 	int	len;
 

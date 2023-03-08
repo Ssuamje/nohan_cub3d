@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:47:58 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/24 16:37:01 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 08:57:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,12 @@ void	check_closed(t_map *map, int i, int j, int last)
 
 void	recursion(char **board, int x, int y, int last)
 {
-	int	len;
 	int	prev_len;
 	int	next_len;
 
 	if (board[x][y] == '2')
 		return ;
 	board[x][y] = '2';
-	len = ft_strlen(board[x]);
 	if (x != 0)
 		prev_len = ft_strlen(board[x - 1]);
 	if (x != last)
