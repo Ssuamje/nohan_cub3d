@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:49 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/03/08 09:34:53 by sanan            ###   ########.fr       */
+/*   Updated: 2023/03/08 09:48:47 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	t_info	info;
 
 	if (ac != 2 || is_extension_valid(av[1]))
-		err_msg("error : improper arguments");
+		exit_error(ERR_ARG);
 	info_init(&info, av[1]);
 	printf("north path is: %s\n", info.north_path);
 	printf("south path is: %s\n", info.south_path);

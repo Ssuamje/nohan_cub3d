@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:25:42 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/03/08 08:47:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/03/08 09:48:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	check_comma(char *str)
 			comma++;
 		else if (str[i] == '\n');
 		else if (!(str[i] >= '0' && str[i] <= '9'))
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 	}
 	if (comma != 2)
-		err_msg("error : improper elements");
+		exit_error(ERR_ELEM_INVALID);
 }
 
 void	check_file_order(char *line)
@@ -67,7 +67,7 @@ void	check_file_order(char *line)
 	while (line[++i])
 	{
 		if (line[i] != ' ' && line[i] != '\n')
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 	}
 }
 
@@ -84,6 +84,6 @@ int	get_last(t_map *map)
 		tmp = tmp->next;
 	}
 	if (i < 2)
-		err_msg("error : invalid map");
+		exit_error(ERR_MAP_INVALID);
 	return (i);
 }

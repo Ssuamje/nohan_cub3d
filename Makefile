@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/03/08 09:38:58 by sanan            ###   ########.fr        #
+#    Updated: 2023/03/08 09:46:33 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ ft_strncmp.c)
 
 DIR_ERROR= ./error/
 SRC_ERROR =$(addprefix $(DIR_ERROR),\
-err_msg.c)
+exit_error.c)
 
 SRC_MAIN =\
 cub3d_utils.c\

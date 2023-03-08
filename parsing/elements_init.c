@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/03/06 15:44:33 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 09:50:37 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	check_f_rgb(t_info *info, char *line, int elements_cnt[])
 		check_comma(line + 2);
 		tmp_rgb = ft_split(line + 2, ',');
 		if (tmp_rgb[3] != NULL)
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 		while (++i < 3)
 		{
 			info->f_rgb[i] = ft_atoi(tmp_rgb[i]);
 			if (info->f_rgb[i] < 0 || info->f_rgb[i] > 255)
-				err_msg("error : improper elements");
+				exit_error(ERR_ELEM_INVALID);
 		}
 		i = -1;
 		while (++i < 3)
@@ -82,12 +82,12 @@ void	check_c_rgb(t_info *info, char *line, int elements_cnt[])
 		check_comma(line + 2);
 		tmp_rgb = ft_split(line + 2, ',');
 		if (tmp_rgb[3] != NULL)
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 		while (++i < 3)
 		{
 			info->c_rgb[i] = ft_atoi(tmp_rgb[i]);
 			if (info->c_rgb[i] < 0 || info->c_rgb[i] > 255)
-				err_msg("error : improper elements");
+				exit_error(ERR_ELEM_INVALID);
 		}
 		i = -1;
 		while (++i < 3)
@@ -123,5 +123,5 @@ void	elements_init(t_info *info)
 		free(line);
 	}
 	if (!elements_filled(elements_cnt))
-		err_msg("error : not enough elements");
+		exit_error(ERR_ELEM_LACK);
 }
