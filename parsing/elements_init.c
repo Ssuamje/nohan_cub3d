@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/03/06 15:44:33 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:06:22 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,11 @@ void	elements_init(t_info *info)
 		}
 		free(line);
 	}
+	for (int i = 0; i < 6; i++)
+	{
+		printf("num is : %d\n", elements_cnt[i]);
+	}
+	
 	if (!elements_filled(elements_cnt))
 		err_msg("error : not enough elements");
 }

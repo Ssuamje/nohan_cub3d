@@ -4,8 +4,8 @@ NO ./path_to_the_north_texture
 EA ./path_to_the_east_texture
 
 SO ./path_to_the_south_texture
-C 255,90,1
 WE ./path_to_the_west_texture
+C 255,90,1
 
                                  1111
 1111111111111111111111111111111111
