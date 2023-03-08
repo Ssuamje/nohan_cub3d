@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/03/08 09:00:44 by sanan            ###   ########.fr        #
+#    Updated: 2023/03/08 09:38:58 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,19 @@ ft_split.c\
 ft_strcmp.c\
 ft_strncmp.c)
 
+DIR_ERROR= ./error/
+SRC_ERROR =$(addprefix $(DIR_ERROR),\
+err_msg.c)
+
 SRC_MAIN =\
 cub3d_utils.c\
-cub3d.c\
-err_msg.c
+cub3d.c
 
 SRCS = \
 $(SRC_PARSING)\
 $(SRC_GNL)\
 $(SRC_LIBFT)\
+$(SRC_ERROR)\
 $(SRC_MAIN)
 
 OBJS = $(SRCS:.c=.o)
@@ -49,7 +53,7 @@ CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
-INCLUDE = -I./include
+INCLUDE = -I./
 
 all : $(NAME)
 	@$(ECHO) $(PURPLE) "🐶 cub3D is ready!" $(RESET)
