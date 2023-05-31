@@ -1,5 +1,9 @@
+
 # Prerequisites
 *.d
+
+#VSCODE
+.vscode*
 
 # Object files
 *.o
