@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/06/19 20:01:14 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/19 21:47:24 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-main.c
+main.c\
+raycast.c
 
 SRCS = \
 $(SRC_PARSING)\
@@ -53,16 +54,19 @@ CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
-LIB_MLX = ./MLX/minilibx_opengl/libmlx.a
+LIB_MLX = ./MLX/libmlx.dylib
 
-INCLUDE = -I./
+INCLUDE = -I./ -I./MLX
+
+MLX_LINK = -L$(dir $(LIB_MLX)) -lmlx
 
 all : $(NAME)
 	@$(ECHO) $(PURPLE) "🐶 cub3D is ready!" $(RESET)
 
 $(NAME) : $(OBJS) $(LIB_MLX)
 	@$(ECHO) $(CYAN) 🐶 assembling $(GREEN) $@
-	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) $(LIB_MLX) -o $(NAME)
+	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) $(LIB_MLX) $(MLX_LINK) -o $(NAME)
+	@mv $(LIB_MLX) ./$(notdir $(LIB_MLX))
 
 %.o : %.c
 	@$(ECHO) $(BLUE) 🐶 compiling $(GREEN) $<
@@ -73,6 +77,7 @@ $(LIB_MLX) :
 
 clean :
 	@rm -rf $(OBJS)
+	@rm $(notdir $(LIB_MLX))
 	@make -C $(dir $(LIB_MLX)) clean
 	@echo $(RED) "	   🐶 cleaned object files!" $(RESET)
 
