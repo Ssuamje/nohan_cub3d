@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/19 20:00:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/19 20:29:36 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,17 @@ typedef struct s_info
 	int				c_rgb[3];
 	struct s_map	*map;
 }	t_info;
+
+typedef struct s_vector
+{
+    double x;
+    double y;
+} t_vec;
+
+typedef struct s_camera
+{
+	
+} t_camera;
 
 /* ./cub3d_utils.c */
 
