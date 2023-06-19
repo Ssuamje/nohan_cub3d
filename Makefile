@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/03/08 09:46:33 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/19 19:46:20 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC_PARSING = $(addprefix $(DIR_PARSING),\
 check_wall.c\
 elements_init.c\
 info_init.c\
+parsing_utils.c\
 map_init.c)
 
 DIR_GNL= ./get_next_line/
@@ -37,8 +38,7 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-cub3d_utils.c\
-cub3d.c
+main.c
 
 SRCS = \
 $(SRC_PARSING)\
