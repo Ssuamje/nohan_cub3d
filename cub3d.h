@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/03/08 09:53:18 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/19 20:00:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include "./MLX/minilibx_opengl/mlx.h"
 
 # define OPEN_ERROR -1
 # define READ_ELEMENTS 1
@@ -34,6 +35,22 @@ enum	e_errno{
 	ERR_MAP_INVALID_PLAYER,
 	ERR_ARG,
 	ERR_WALL_INVALID,
+};
+
+enum	e_key{
+	KEY_W = 13,
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124,
+	KEY_ESC = 53,
+};
+
+enum	e_camera_position{
+	FAR_LEFT = -1,
+	CENTER = 0,
+	FAR_RIGHT = 1,
 };
 
 typedef struct s_map
