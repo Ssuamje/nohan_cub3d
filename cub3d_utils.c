@@ -6,13 +6,13 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:25:42 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/03/06 20:05:51 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:47:21 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_arg(char *filename)
+int	is_extension_valid(char *filename)
 {
 	int	len;
 
@@ -48,10 +48,10 @@ void	check_comma(char *str)
 			comma++;
 		else if (str[i] == '\n');
 		else if (!(str[i] >= '0' && str[i] <= '9'))
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 	}
 	if (comma != 2)
-		err_msg("error : improper elements");
+		exit_error(ERR_ELEM_INVALID);
 }
 
 void	check_file_order(char *line)
@@ -67,7 +67,7 @@ void	check_file_order(char *line)
 	while (line[++i])
 	{
 		if (line[i] != ' ' && line[i] != '\n')
-			err_msg("error : improper elements");
+			exit_error(ERR_ELEM_INVALID);
 	}
 }
 
@@ -84,6 +84,6 @@ int	get_last(t_map *map)
 		tmp = tmp->next;
 	}
 	if (i < 2)
-		err_msg("error : invalid map");
+		exit_error(ERR_MAP_INVALID);
 	return (i);
 }

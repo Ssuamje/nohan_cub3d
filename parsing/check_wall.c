@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:47:58 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/24 16:37:01 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 09:50:20 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	check_side(t_map *map, int i, int j, int last)
 	while (tmp)
 	{
 		if (tmp->line[0] != '1' && tmp->line[0] != ' ')
-			err_msg("error : wall not closed");
+			exit_error(ERR_WALL_INVALID);
 		len = ft_strlen(tmp->line) - 1;
 		if (tmp->line[len] != '1')
-			err_msg("error : wall not closed");
+			exit_error(ERR_WALL_INVALID);
 		i = -1;
 		while (tmp->line[++i])
 		{
 			if (j == 0 || j == last)
 			{
 				if (tmp->line[i] != '1' && tmp->line[i] != ' ')
-					err_msg("error : wall not closed");
+					exit_error(ERR_WALL_INVALID);
 			}
 		}
 		j++;
@@ -55,12 +55,12 @@ void	check_closed(t_map *map, int i, int j, int last)
 			{
 				next_len = ft_strlen(tmp->next->line) - 1;
 				if (tmp->line[i] != '1' && tmp->line[i] != ' ' && i > next_len)
-					err_msg("error : wall not closed");
+					exit_error(ERR_WALL_INVALID);
 			}
 			if ((tmp->line[i] != '1' && tmp->line[i] != ' ') 
 				&& (tmp->line[i - 1] == ' ' || tmp->line[i + 1] == ' '
 				|| tmp->prev->line[i] == ' ' || tmp->next->line[i] == ' '))
-				err_msg("error : wall not closed");
+				exit_error(ERR_WALL_INVALID);
 		}
 		i = 0;
 		j++;
@@ -70,14 +70,12 @@ void	check_closed(t_map *map, int i, int j, int last)
 
 void	recursion(char **board, int x, int y, int last)
 {
-	int	len;
 	int	prev_len;
 	int	next_len;
 
 	if (board[x][y] == '2')
 		return ;
 	board[x][y] = '2';
-	len = ft_strlen(board[x]);
 	if (x != 0)
 		prev_len = ft_strlen(board[x - 1]);
 	if (x != last)
@@ -132,7 +130,7 @@ void	check_island(t_map *map, int i, int j, int last)
 		while (++j < len)
 		{
 			if (board[i][j] != '2' && board[i][j] != ' ')
-				err_msg("error : island exists");
+				exit_error(ERR_MAP_INVALID);
 		}
 	}
 	i = -1;

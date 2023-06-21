@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/24 16:36:54 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/03/08 09:52:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_empty_line(t_map *map)
 				flag++;
 		}
 		if (flag == 0)
-			err_msg("error : invalid map");
+			exit_error(ERR_MAP_INVALID);
 		tmp = tmp->next;
 	}
 }
@@ -55,7 +55,7 @@ void	map_start(t_info *info)
 	{
 		line = get_next_line(info->fd);
 		if (line == NO_MORE_TO_READ)
-			err_msg("error : invalid map");
+			exit_error(ERR_MAP_INVALID);
 		if (check_validity(line))
 		{
 			info->map = malloc(sizeof(t_map));
@@ -67,7 +67,7 @@ void	map_start(t_info *info)
 		}
 		free(line);
 	}
-	err_msg("error : invalid map");
+	exit_error(ERR_MAP_INVALID);
 }
 
 void	map_init(t_info *info)
