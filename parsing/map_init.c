@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/03/08 09:52:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/21 16:19:00 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,11 @@ void	map_init(t_info *info)
 	char	*line;
 	t_map	*cur;
 	t_map	*next;
+	int		width;
 
 	map_start(info);
+	info->map_width = ft_strlen(info->map->line);
+	info->map_height = 1;
 	cur = info->map;
 	next = info->map->next;
 	while (READ_MAP)
@@ -87,6 +90,10 @@ void	map_init(t_info *info)
 			free(line);
 			break ;
 		}
+		info->map_height++;
+		width = ft_strlen(line) - 1;
+		if (width > info->map_width)
+			info->map_width = width;
 		next = malloc(sizeof(t_map));
 		next->line = ft_linedup(line);
 		next->prev = cur;

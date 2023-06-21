@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/03/08 09:53:18 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/21 16:03:05 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <mlx.h>
 
 # define OPEN_ERROR -1
 # define READ_ELEMENTS 1
@@ -25,6 +26,10 @@
 # define FILLED 1
 # define UNFILLED 0
 # define NO_MORE_TO_READ NULL
+
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
+# define WINDOW_EXIT 17
 
 enum	e_errno{
 	ERR_ELEM_INVALID,
@@ -53,7 +58,23 @@ typedef struct s_info
 	int				f_rgb[3];
 	int				c_rgb[3];
 	struct s_map	*map;
+	int				map_width;
+	int				map_height;
 }	t_info;
+
+typedef struct s_vector
+{
+    double x;
+    double y;
+}	t_vec;
+
+typedef struct s_fps
+{
+	double current;
+	double past;
+}	t_fps;
+
+void	raycast(t_info *info);
 
 /* ./cub3d_utils.c */
 

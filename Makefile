@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/03/08 09:46:33 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/21 14:30:27 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ exit_error.c)
 
 SRC_MAIN =\
 cub3d_utils.c\
+raycast.c\
 cub3d.c
 
 SRCS = \
@@ -60,7 +61,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(ECHO) $(CYAN) 🐶 assembling $(GREEN) $@
-	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) -o $(NAME)
+	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : %.c
 	@$(ECHO) $(BLUE) 🐶 compiling $(GREEN) $<
