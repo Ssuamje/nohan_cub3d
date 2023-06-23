@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:23:14 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 15:26:33 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ typedef struct s_info
 
 typedef struct s_game
 {
-	int				**map;
+	char			*texture[4];
+	int				floor;
+	int				ceiling;
 	int				map_row;
 	int				map_col;
-	char			texture[]
+	int				**map;
 	
 } t_game;
 
@@ -151,7 +153,7 @@ void	check_wall(t_map *map);
 /* ./parsing/info_init.c */
 
 void	check_char(t_map *map);
-void	info_init(t_info *info, char *filename);
+void	info_init(t_info *info, t_game *game, char *filename);
 
 /* ./parsing/map_init.c */
 
