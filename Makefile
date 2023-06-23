@@ -6,7 +6,7 @@
 #    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/06/23 13:08:02 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/06/23 13:22:19 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ check_wall.c\
 elements_init.c\
 info_init.c\
 parsing_utils.c\
-map_init.c)
+map_init.c\
+copy_map.c)
 
 DIR_GNL= ./get_next_line/
 SRC_GNL =$(addprefix $(DIR_GNL),\
@@ -38,8 +39,8 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-main.c\
-raycast.c
+cub3d.c
+# raycast.c
 
 SRCS = \
 $(SRC_PARSING)\

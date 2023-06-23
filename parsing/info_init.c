@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:28:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/03/08 09:52:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 14:09:51 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	info_init(t_info *info, char *filename)
 	check_char(info->map);
 	check_wall(info->map);
 	close(info->fd);
+	copy_map(info);
 }

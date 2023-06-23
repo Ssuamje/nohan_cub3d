@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 13:07:49 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:23:29 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include "./MLX/mlx.h"
+# include <mlx.h>
 
 # define OPEN_ERROR -1
 # define READ_ELEMENTS 1
@@ -73,6 +73,7 @@ typedef struct s_info
 	struct s_map	*map;
 	int				map_width;
 	int				map_height;
+	int				**world_map;
 }	t_info;
 
 typedef struct s_vector
@@ -137,6 +138,8 @@ int		check_validity(char *line);
 void	check_empty_line(t_map *map);
 void	map_start(t_info *info);
 void	map_init(t_info *info);
+
+void	copy_map(t_info	*info);
 
 /* ./get_next_line/get_next_line_utils.c */
 
