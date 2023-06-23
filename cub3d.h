@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/21 16:03:05 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:07:49 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "./MLX/mlx.h"
 
 # define OPEN_ERROR -1
 # define READ_ELEMENTS 1
@@ -39,6 +39,19 @@ enum	e_errno{
 	ERR_MAP_INVALID_PLAYER,
 	ERR_ARG,
 	ERR_WALL_INVALID,
+};
+
+/**
+ * MAC_OS 키맵에 따른 값
+*/
+enum	e_key{
+	KEY_W = 13,
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124,
+	KEY_ESC = 53,
 };
 
 typedef struct s_map
@@ -66,15 +79,22 @@ typedef struct s_vector
 {
     double x;
     double y;
-}	t_vec;
+} t_vec;
 
+typedef struct s_camera
+{
+	
+} t_camera;
+
+/**
+ * curr_time : 현재 프레임의 시각
+ * old_time : 이전 프레임의 시각
+*/
 typedef struct s_fps
 {
-	double current;
-	double past;
+	double curr_time;
+	double old_time;
 }	t_fps;
-
-void	raycast(t_info *info);
 
 /* ./cub3d_utils.c */
 
