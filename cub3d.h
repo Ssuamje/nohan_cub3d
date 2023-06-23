@@ -38,7 +38,8 @@ enum	e_errno{
 /**
  * MAC_OS 키맵에 따른 값
 */
-enum	e_key{
+enum	e_key
+{
 	KEY_W = 13,
 	KEY_A = 0,
 	KEY_S = 1,
@@ -46,6 +47,17 @@ enum	e_key{
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
 	KEY_ESC = 53,
+};
+
+enum	e_key_indexes
+{
+	W = 0,
+	A,
+	S,
+	D,
+	LEFT,
+	RIGHT,
+	ESC,
 };
 
 typedef struct s_map
@@ -61,6 +73,20 @@ enum e_textures
 	SOUTH,
 	EAST,
 	WEST,
+};
+
+enum e_key_events
+{
+	PRESS = 2,
+	RELEASE = 3,
+	EXIT = 17,
+};
+
+enum e_key_masks
+{
+	MASK_PRESS = 1L<<0,
+	MASK_RELEASE = 1L<<1,
+	MASK_EXIT = 1L<<17,
 };
 
 typedef struct s_info
@@ -84,14 +110,17 @@ typedef struct s_game
 	void			*mlx;
 	void			*win;
 	void			*img;
+	char			*img_data;
+	int				bits_per_pixel;
+	int				img_line_size;
+	int				endian;
 	char			*texture[4];
-	int				floor;
-	int				ceiling;
+	int				**map;
 	int				map_row;
 	int				map_col;
-	int				**map;
-	
-	
+	int				ceiling;
+	int				floor;
+	int				keys[7];
 } t_game;
 
 typedef struct s_vector

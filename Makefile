@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/06/23 13:22:19 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/06/23 15:43:59 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-cub3d.c
+mlx_main.c
 # raycast.c
 
 SRCS = \
@@ -78,7 +78,6 @@ $(LIB_MLX) :
 
 clean :
 	@rm -rf $(OBJS)
-	@rm $(notdir $(LIB_MLX))
 	@make -C $(dir $(LIB_MLX)) clean
 	@echo $(RED) "	   🐶 cleaned object files!" $(RESET)
 
