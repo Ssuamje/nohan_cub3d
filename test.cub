@@ -1,13 +1,13 @@
 
 F 123,123,255
-NO ./path_to_the_north_texture
-EA ./path_to_the_east_texture
+NO ./textures/n.xpm
+EA ./textures/e.xpm
 
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
+SO ./textures/s.xpm
+WE ./textures/w.xpm
 C 255,90,1
 
-111111111111111111111111
-11011N1     1001
-1111111     11111111111
-111      1111
+1111111111111
+1111100011111
+110110N011001
+1111111111111

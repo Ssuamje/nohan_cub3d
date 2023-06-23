@@ -98,6 +98,11 @@ void	print_game(t_game *game)
 	printf("bits_per_pixel : %d\n", game->bits_per_pixel);
 	printf("img_line_size : %d\n", game->img_line_size);
 	printf("endian : %d\n", game->endian);
+	//print textures
+	printf("north : %s\n", game->texture[NORTH]);
+	printf("south : %s\n", game->texture[SOUTH]);
+	printf("west : %s\n", game->texture[WEST]);
+	printf("east : %s\n", game->texture[EAST]);
 }
 
 int		destory_game_mlx(t_game *game)
