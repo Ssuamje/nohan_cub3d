@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-int rgbToHex(int red, int green, int blue) {
+int	rgb_to_hex(int red, int green, int blue) {
     return (red << 16) | (green << 8) | blue;
 }
 
@@ -73,9 +73,9 @@ void	game_init(t_info *info, t_game *game)
 {
 	copy_map(info, game);
 	copy_texture(info, game);
-	game->ceiling = rgbToHex(info->c_rgb[0],info->c_rgb[1],info->c_rgb[2]);
-	game->floor = rgbToHex(info->f_rgb[0],info->f_rgb[1],info->f_rgb[2]);
-	printf("%d and %d", game->ceiling, game->floor);
+	game->ceiling = rgb_to_hex(info->c_rgb[0],info->c_rgb[1],info->c_rgb[2]);
+	game->floor = rgb_to_hex(info->f_rgb[0],info->f_rgb[1],info->f_rgb[2]);
+	printf("%06X and %06X", game->ceiling, game->floor);
 
 }
 	// free(game->texture[NORTH]);
