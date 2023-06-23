@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:15:44 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 15:23:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@
 # define UNFILLED 0
 # define NO_MORE_TO_READ NULL
 
+#ifndef SCREEN_WIDTH
 # define SCREEN_WIDTH 640
+#endif
+#ifndef SCREEN_HEIGHT
 # define SCREEN_HEIGHT 480
-# define WINDOW_EXIT 17
+#endif
 
 enum	e_errno{
 	ERR_ELEM_INVALID,
