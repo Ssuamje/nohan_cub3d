@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 13:23:29 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:07:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ typedef struct s_vector
     double y;
 } t_vec;
 
-typedef struct s_camera
+typedef struct s_int_vector 
 {
-	
-} t_camera;
-
+	int x;
+	int y;
+} t_int_vec;
 /**
  * curr_time : 현재 프레임의 시각
  * old_time : 이전 프레임의 시각

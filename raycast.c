@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 20:21:15 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/23 13:08:16 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:07:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ int world_map[10][10] = {
     {1,1,1,1,1,1,1,1,1,1}};
 
 int main() 
+{
+    void    *mlx;
+    void    *win;
+    mlx = mlx_init();
+    win = mlx_new_window(mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "큐브삼디");
+    raycast(mlx, win);
+    mlx_loop(mlx);
+    return (0);
+}
+
+void raycast() 
 {
     // void    *mlx;
 
