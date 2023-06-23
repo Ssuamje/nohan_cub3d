@@ -13,9 +13,11 @@ int		run_game(t_game *game);
 void	init_game_ray_condition(t_game *game);
 void	print_int_map(t_game *game);
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
-void    draw_vertical(t_game *game, int x, int draw_start, int draw_end, int color);
+void    draw_vertical(t_game *game, int x);
 void	clear_image(t_game *game);
 void	raycast(t_game *game);
+void	set_wall_texture(t_game *game);
+void	set_colors(t_game *game);
 
 
 void leaks()
@@ -61,12 +63,13 @@ endian : 이미지의 픽셀 색상 저장 방식(little endian = 0, big endian 
 
 void	init_game_ray_condition(t_game *game)
 {
-	game->pos.x = 0;
-	game->pos.y = 0;
-	game->dir.x = 0;
+	//to-do : 맵에 따라 알맞게 설정하기
+	game->pos.x = 3;
+	game->pos.y = 3;
+	game->dir.x = -1;
 	game->dir.y = 0;
 	game->plane.x = 0;
-	game->plane.y = 0;
+	game->plane.y = 0.66;
 	game->side_dist.x = 0;
 	game->side_dist.y = 0;
 	game->delta_dist.x = 0;
@@ -75,7 +78,6 @@ void	init_game_ray_condition(t_game *game)
 	game->step.y = 1;
 	game->fps.curr_time = 0;
 	game->fps.old_time = 0;
-	// 여기까지 map의 정보를 기준으로 설정해야함.
 }
 
 void	init_game_keys(t_game *game)
@@ -182,7 +184,6 @@ void	raycast(t_game *game)
 		set_ray_direction(game);
 		set_map_position(game);
 		set_delta_distance(game);
-		set_step(game);
 		set_side_distance(game);
 		// perform DDA
 		dda(game);
@@ -200,23 +201,115 @@ void	raycast(t_game *game)
 		game->draw_end = game->line_height / 2 + SCREEN_HEIGHT / 2;
 		if (game->draw_end >= SCREEN_HEIGHT)
 			game->draw_end = SCREEN_HEIGHT - 1;
-		// choose wall color
-		game->color = 0;
+
+		// // choose wall color 1
+		// set_wall_texture(game);
+		// if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
+		// 	set_colors(game);
+		// else
+		// 	game->color = 0;
+		
+		// choose wall color 2
 		if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
-			game->color = 0xFF0000;
+			game->color = 0xFFFF00;
 		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 2)
-			game->color = 0x00FF00;
-		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 3)
 			game->color = 0x0000FF;
+		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 3)
+			game->color = 0xFF0000;
 		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 4)
+			game->color = 0x00FFFF;
+		else
 			game->color = 0xFFFFFF;
+
 		// give x and y sides different brightness
 		if (game->side == 1)
-			game->color = game->color / 2;
+			game->color /= 2;
 		// draw the pixels of the stripe as a vertical line
-		draw_vertical(game, x, game->draw_start, game->draw_end, game->color);
+		draw_vertical(game, x);
 		x++;
 	}
+}
+
+void	read_keys_and_move(t_game *game)
+{
+	if (game->keys[W])
+	{
+		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
+			game->pos.x += game->dir.x * MOVE_SPEED;
+		if (game->map[(int)game->pos.x][(int)(game->pos.y + game->dir.y * MOVE_SPEED)] == 0)
+			game->pos.y += game->dir.y * MOVE_SPEED;
+	}
+	if (game->keys[S])
+	{
+		if (game->map[(int)(game->pos.x - game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
+			game->pos.x -= game->dir.x * MOVE_SPEED;
+		if (game->map[(int)game->pos.x][(int)(game->pos.y - game->dir.y * MOVE_SPEED)] == 0)
+			game->pos.y -= game->dir.y * MOVE_SPEED;
+	}
+	if (game->keys[D])
+	{
+		if (game->map[(int)(game->pos.x + game->dir.y * MOVE_SPEED)][(int)game->pos.y] == 0)
+			game->pos.x += game->dir.y * MOVE_SPEED;
+		if (game->map[(int)game->pos.x][(int)(game->pos.y - game->dir.x * MOVE_SPEED)] == 0)
+			game->pos.y -= game->dir.x * MOVE_SPEED;
+	}
+	if (game->keys[A])
+	{
+		if (game->map[(int)(game->pos.x - game->dir.y * MOVE_SPEED)][(int)game->pos.y] == 0)
+			game->pos.x -= game->dir.y * MOVE_SPEED;
+		if (game->map[(int)game->pos.x][(int)(game->pos.y + game->dir.x * MOVE_SPEED)] == 0)
+			game->pos.y += game->dir.x * MOVE_SPEED;
+	}
+	if (game->keys[LEFT])
+	{
+		// both camera direction and camera plane must be rotated
+		double old_dir_x;
+		double old_plane_x;
+		old_dir_x = game->dir.x;
+		game->dir.x = game->dir.x * cos(-ROTATE_SPEED) - game->dir.y * sin(-ROTATE_SPEED);
+		game->dir.y = old_dir_x * sin(-ROTATE_SPEED) + game->dir.y * cos(-ROTATE_SPEED);
+		old_plane_x = game->plane.x;
+		game->plane.x = game->plane.x * cos(-ROTATE_SPEED) - game->plane.y * sin(-ROTATE_SPEED);
+		game->plane.y = old_plane_x * sin(-ROTATE_SPEED) + game->plane.y * cos(-ROTATE_SPEED);
+	}
+	if (game->keys[RIGHT])
+	{
+		// both camera direction and camera plane must be rotated
+		double old_dir_x;
+		double old_plane_x;
+		old_dir_x = game->dir.x;
+		game->dir.x = game->dir.x * cos(ROTATE_SPEED) - game->dir.y * sin(ROTATE_SPEED);
+		game->dir.y = old_dir_x * sin(ROTATE_SPEED) + game->dir.y * cos(ROTATE_SPEED);
+		old_plane_x = game->plane.x;
+		game->plane.x = game->plane.x * cos(ROTATE_SPEED) - game->plane.y * sin(ROTATE_SPEED);
+		game->plane.y = old_plane_x * sin(ROTATE_SPEED) + game->plane.y * cos(ROTATE_SPEED);
+	}
+}
+
+void	set_wall_texture(t_game *game)
+{
+	if (game->side == 0)
+		game->wall_x = game->pos.y + game->perp_wall_dist * game->ray_dir.y;
+	else
+		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
+	game->wall_x -= floor(game->wall_x);
+	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
+	if (game->side == 0 && game->ray_dir.x > 0)
+		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
+	if (game->side == 1 && game->ray_dir.y < 0)
+		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
+}
+
+void	set_colors(t_game *game)
+{
+	if (game->side == 0 && game->ray_dir.x > 0)
+		game->color = game->texture[EAST][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
+	else if (game->side == 0 && game->ray_dir.x < 0)
+		game->color = game->texture[WEST][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
+	else if (game->side == 1 && game->ray_dir.y > 0)
+		game->color = game->texture[SOUTH][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
+	else
+		game->color = game->texture[NORTH][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
 }
 
 int		print_key_press(t_game *game)
@@ -264,17 +357,17 @@ void my_mlx_pixel_put(t_game *game, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-void    draw_vertical(t_game *game, int x, int draw_start, int draw_end, int color)
+void    draw_vertical(t_game *game, int x)
 {
     int y = 0;
-    while (y < draw_start)
+    while (y < game->draw_start)
     {
         my_mlx_pixel_put(game, x, y, game->ceiling);
         y++;
     }
-    while (y < draw_end)
+    while (y < game->draw_end)
     {
-        my_mlx_pixel_put(game, x, y, color);
+        my_mlx_pixel_put(game, x, y, game->color);
         y++;
     }
     while (y < SCREEN_HEIGHT)

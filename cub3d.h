@@ -15,6 +15,9 @@
 # define UNFILLED 0
 # define NO_MORE_TO_READ NULL
 
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.05
+
 #ifndef SCREEN_WIDTH
 # define SCREEN_WIDTH 640
 #endif
@@ -23,6 +26,9 @@
 #endif
 #ifndef GAME_NAME
 # define GAME_NAME "cub3D"
+#endif
+#ifndef TEXTURE_WIDTH
+# define TEXTURE_WIDTH 64
 #endif
 
 enum	e_errno{
@@ -144,7 +150,9 @@ typedef struct s_game
 	t_vec			pos; // position, 현재 플레이어의 위치 - 소수점 포함
 	t_vec			coord; // coordination, 현재 플레이어가 위치한 칸의 좌표 - 소수점 미포함
 	t_vec			dir; // direction, 방향 벡터
+	t_vec			old_dir; // old_direction, 방향 벡터
 	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
+	
 	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
 	int				camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
 	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
@@ -157,6 +165,12 @@ typedef struct s_game
 	int				draw_start; // draw-start, 세로선의 시작점
 	int				draw_end; // draw-end, 세로선의 끝점
 	t_fps			fps; // fps, 프레임 속도
+	//아래는 삭제의 여지가 있음(막 만들었음)
+	int				wall_texture_x; // wall_texture_x, 벽 텍스처의 x 좌표
+	int				wall_texture_y; // wall_texture_y, 벽 텍스처의 y 좌표
+	double			wall_x; // wall_x, 벽의 x 좌표
+	double			step_texture; // step_texture, 벽 텍스처의 y 좌표가 얼마나 증가하는지
+	double			texture_pos; // texture_pos, 벽 텍스처의 y 좌표
 } t_game;
 
 /* ./cub3d_utils.c */
@@ -229,4 +243,5 @@ void    set_delta_distance(t_game *game);
 void    set_step(t_game *game);
 void    set_side_distance(t_game *game);
 void    dda(t_game *game);
+int     ternary(int condition, int if_true, int if_false);
 #endif

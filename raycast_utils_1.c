@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:13:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/23 20:47:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 21:46:35 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,18 @@ void    set_map_position(t_game *game)
 
 void    set_delta_distance(t_game *game)
 {
+    // game->delta_dist.x = ternary(game->ray_dir.x == 0, INT32_MAX, fabs(1 / game->ray_dir.x));
+    // game->delta_dist.y = ternary(game->ray_dir.y == 0, INT32_MAX, fabs(1 / game->ray_dir.y));
     game->delta_dist.x = fabs(1 / game->ray_dir.x);
     game->delta_dist.y = fabs(1 / game->ray_dir.y);
+}
+
+int     ternary(int condition, int if_true, int if_false)
+{
+    if (condition)
+        return (if_true);
+    else
+        return (if_false);
 }
 
 void    set_step(t_game *game)
@@ -51,19 +61,30 @@ void    set_step(t_game *game)
 void    set_side_distance(t_game *game)
 {
     if (game->ray_dir.x < 0)
+    {
+        game->step.x = -1;
         game->side_dist.x = (game->pos.x - game->coord.x) * game->side_dist.x;
+    }
     else
-        game->side_dist.x = (game->coord.x + 1.0 - game->pos.x) * game->side_dist.x;
+    {
+        game->step.x = 1;
+        game->side_dist.x = (game->coord.x + 1.0 - game->pos.x) * game->delta_dist.x;
+    }
     if (game->ray_dir.y < 0)
+    {
+        game->step.y = -1;
         game->side_dist.y = (game->pos.y - game->coord.y) * game->side_dist.y;
+    }
     else
-        game->side_dist.y = (game->coord.y + 1.0 - game->pos.y) * game->side_dist.y;
+    {
+        game->step.y = 1;
+        game->side_dist.y = (game->coord.y + 1.0 - game->pos.y) * game->delta_dist.y;
+    }
 }
 
 void    dda(t_game *game)
 {
-    int hit = 0;
-    while (!hit)
+    while (1)
     {
         if (game->side_dist.x < game->side_dist.y)
         {
@@ -82,9 +103,11 @@ void    dda(t_game *game)
     }
 
     if (game->side == 0)
-        game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x) * game->ray_dir.x;
+        game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x);
+        // game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x) * game->ray_dir.x;
     else
-        game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y) * game->ray_dir.y;
+        game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y);
+        // game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y) * game->ray_dir.y;
     
 }
 
