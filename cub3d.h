@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:07:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 15:15:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,38 @@ typedef struct s_map
 	struct s_map	*next;
 }	t_map;
 
+enum e_textures
+{
+	NORTH = 0,
+	SOUTH,
+	EAST,
+	WEST,
+};
+
 typedef struct s_info
 {
-	int				fd;
-	char			*north_path;
+	int				fd; // 얘도 없어도 됨
+	char			*textures[4];
+	char			*north_path; // path to textures
 	char			*south_path;
 	char			*west_path;
 	char			*east_path;
-	int				f_rgb[3];
+	int				f_rgb[3]; // color 하나로 표현하기
 	int				c_rgb[3];
-	struct s_map	*map;
+	struct s_map	*map; // 없애기
 	int				map_width;
 	int				map_height;
 	int				**world_map;
 }	t_info;
+
+typedef struct s_game
+{
+	int				**map;
+	int				map_row;
+	int				map_col;
+	char			texture[]
+	
+} t_game;
 
 typedef struct s_vector
 {
