@@ -103,6 +103,28 @@ typedef struct s_info
 	int				map_height;
 }	t_info;
 
+typedef struct s_vector
+{
+    double x;
+    double y;
+} t_vec;
+
+typedef struct s_int_vector 
+{
+	int x;
+	int y;
+} t_int_vec;
+
+/**
+ * curr_time : 현재 프레임의 시각
+ * old_time : 이전 프레임의 시각
+*/
+typedef struct s_fps
+{
+	double curr_time;
+	double old_time;
+}	t_fps;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -116,31 +138,26 @@ typedef struct s_game
 	int				**map;
 	int				map_row;
 	int				map_col;
-	int				ceiling;
-	int				floor;
-	int				keys[7];
+	int				ceiling; // 천장 색깔
+	int				floor; // 바닥 색깔
+	int				keys[7]; // 키보드 입력에 따른 키 배열
+	t_vec			pos; // position, 현재 플레이어의 위치 - 소수점 포함
+	t_vec			coord; // coordination, 현재 플레이어가 위치한 칸의 좌표 - 소수점 미포함
+	t_vec			dir; // direction, 방향 벡터
+	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
+	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
+	int				camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
+	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
+	t_vec			delta_dist; // delta-distance, side-dist에서 다음 x 또는 y 방향의 칸 사이의 거리
+	double			perp_wall_dist; // perpendicular-wall-distance, ray가 맞는 지점까지의 수직거리
+	t_vec			step; // step, ray가 한 칸씩 이동할 때의 x 또는 y 방향의 증가량
+	int				color; // pixel의 color
+	int				side; // ray가 맞은 면의 방향
+	int				line_height; // line-height, 세로선의 높이
+	int				draw_start; // draw-start, 세로선의 시작점
+	int				draw_end; // draw-end, 세로선의 끝점
+	t_fps			fps; // fps, 프레임 속도
 } t_game;
-
-typedef struct s_vector
-{
-    double x;
-    double y;
-} t_vec;
-
-typedef struct s_int_vector 
-{
-	int x;
-	int y;
-} t_int_vec;
-/**
- * curr_time : 현재 프레임의 시각
- * old_time : 이전 프레임의 시각
-*/
-typedef struct s_fps
-{
-	double curr_time;
-	double old_time;
-}	t_fps;
 
 /* ./cub3d_utils.c */
 
@@ -206,5 +223,10 @@ char	*get_next_line(int fd);
 char	*get_msg_by_errno(int errno);
 void	exit_error(int errno);
 
-
+void    set_ray_direction(t_game *game);
+void    set_map_position(t_game *game);
+void    set_delta_distance(t_game *game);
+void    set_step(t_game *game);
+void    set_side_distance(t_game *game);
+void    dda(t_game *game);
 #endif

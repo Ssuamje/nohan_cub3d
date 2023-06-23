@@ -27,9 +27,9 @@ void	copy_map(t_info	*info, t_game *game)
 	int		tmp_len;
 	t_map	*tmp;
 
-	i = -1;
 	tmp = info->map;
 	game->map = malloc(sizeof(int*) * info->map_height);
+	i = -1;
 	while (++i < info->map_height)
 	{
 		j = -1;

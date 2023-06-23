@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:13:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/23 15:07:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 20:47:28 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,76 +18,73 @@
  * map 벡터의 경우 int로 설정.
 */
 
-void    set_ray_direction(t_vec *ray_dir, t_vec dir, t_vec plane, double camera_x)
+void    set_ray_direction(t_game *game)
 {
-    ray_dir->x = dir.x + plane.x * camera_x;
-    ray_dir->y = dir.y + plane.y * camera_x;
+    game->ray_dir.x = game->dir.x + game->plane.x * game->camera_x;
+    game->ray_dir.y = game->dir.y + game->plane.y * game->camera_x;
 }
 
-void    set_map_position(t_vec *map, t_vec pos)
+void    set_map_position(t_game *game)
 {
-    map->x = (int)pos.x;
-    map->y = (int)pos.y;
+    game->coord.x = (int)game->pos.x;
+    game->coord.y = (int)game->pos.y;
 }
 
-void    set_delta_distance(t_vec *delta_dist, t_vec ray_dir)
+void    set_delta_distance(t_game *game)
 {
-    delta_dist->x = fabs(1 / ray_dir.x);
-    delta_dist->y = fabs(1 / ray_dir.y);
+    game->delta_dist.x = fabs(1 / game->ray_dir.x);
+    game->delta_dist.y = fabs(1 / game->ray_dir.y);
 }
 
-void    set_step(t_vec *step, t_vec ray_dir)
+void    set_step(t_game *game)
 {
-    if (ray_dir.x < 0)
-        step->x = -1;
+    if (game->ray_dir.x < 0)
+        game->step.x = -1;
     else
-        step->x = 1;
-    if (ray_dir.y < 0)
-        step->y = -1;
+        game->step.x = 1;
+    if (game->ray_dir.y < 0)
+        game->step.y = -1;
     else
-        step->y = 1;
+        game->step.y = 1;
 }
 
-void    set_side_distance(t_vec *side_dist, t_vec ray_dir, t_vec pos, t_vec map)
+void    set_side_distance(t_game *game)
 {
-    if (ray_dir.x < 0)
-        side_dist->x = (pos.x - map.x) * side_dist->x;
+    if (game->ray_dir.x < 0)
+        game->side_dist.x = (game->pos.x - game->coord.x) * game->side_dist.x;
     else
-        side_dist->x = (map.x + 1.0 - pos.x) * side_dist->x;
-    if (ray_dir.y < 0)
-        side_dist->y = (pos.y - map.y) * side_dist->y;
+        game->side_dist.x = (game->coord.x + 1.0 - game->pos.x) * game->side_dist.x;
+    if (game->ray_dir.y < 0)
+        game->side_dist.y = (game->pos.y - game->coord.y) * game->side_dist.y;
     else
-        side_dist->y = (map.y + 1.0 - pos.y) * side_dist->y;
+        game->side_dist.y = (game->coord.y + 1.0 - game->pos.y) * game->side_dist.y;
 }
 
-void    dda(int **world_map, t_vec  *pos, t_vec *ray_dir,
- t_vec *side_dist, t_vec *delta_dist, t_vec *step, t_vec *map)
+void    dda(t_game *game)
 {
     int hit = 0;
-    int side = 0;
     while (!hit)
     {
-        if (side_dist->x < side_dist->y)
+        if (game->side_dist.x < game->side_dist.y)
         {
-            side_dist->x += delta_dist->x;
-            map->x += step->x;
-            side = 0;
+            game->side_dist.x += game->delta_dist.x;
+            game->coord.x += game->step.x;
+            game->side = 0;
         }
         else
         {
-            side_dist->y += delta_dist->y;
-            map->y += step->y;
-            side = 1;
+            game->side_dist.y += game->delta_dist.y;
+            game->coord.y += game->step.y;
+            game->side = 1;
         }
-        if (world_map[(int)map->x][(int)map->y] > 0)
+        if (game->map[(int)game->coord.x][(int)game->coord.y] > 0)
             break;
     }
 
-    double perpendicular_wall_distance;
-    if (side == 0)
-        perpendicular_wall_distance = (side_dist->x - delta_dist->x) * ray_dir->x;
+    if (game->side == 0)
+        game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x) * game->ray_dir.x;
     else
-        perpendicular_wall_distance = (side_dist->y - delta_dist->y) * ray_dir->y;
+        game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y) * game->ray_dir.y;
     
 }
 
