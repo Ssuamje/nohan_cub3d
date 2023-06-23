@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:32:59 by sanan            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -160,7 +148,7 @@ void	check_wall(t_map *map);
 /* ./parsing/info_init.c */
 
 void	check_char(t_map *map);
-void	info_init(t_info *info, t_game *game, char *filename);
+void	info_init(t_info *info, char *filename);
 
 /* ./parsing/map_init.c */
 

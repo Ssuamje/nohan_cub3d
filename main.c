@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:49 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:23:50 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:29:45 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int ac, char **av)
 
 	if (ac != 2 || is_extension_valid(av[1]))
 		exit_error(ERR_ARG);
-	info_init(&info, &game, av[1]);
+	info_init(&info, av[1]);
+	game_init(&info, &game);
 	// raycast(&info);
 	return EXIT_SUCCESS;
 }

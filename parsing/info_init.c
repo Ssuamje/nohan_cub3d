@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:28:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/06/23 15:24:00 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:31:43 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	check_char(t_map *map)
 		exit_error(ERR_MAP_INVALID_PLAYER);
 }
 
-void	info_init(t_info *info, t_game game, char *filename)
+void	info_init(t_info *info, char *filename)
 {
 	info->fd = open(filename, O_RDONLY);
 	if (info->fd == OPEN_ERROR)
@@ -52,5 +52,4 @@ void	info_init(t_info *info, t_game game, char *filename)
 	check_char(info->map);
 	check_wall(info->map);
 	close(info->fd);
-	copy_map(info);
 }
