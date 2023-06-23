@@ -72,7 +72,6 @@ void	hook_key_events(t_game *game)
 {
 	mlx_hook(game->win, PRESS, 1L<<0, &key_press, game);
 	mlx_hook(game->win, RELEASE, 1L<<1, &key_release, game);
-	mlx_hook(game->win, EXIT, 1L<<5, &destory_game_mlx, game);
 }
 
 int		key_press(int key_code, t_game *game)
@@ -90,7 +89,10 @@ int		key_press(int key_code, t_game *game)
 	else if (key_code == KEY_RIGHT)
 		game->keys[RIGHT] = 1;
 	else if (key_code == KEY_ESC)
-		game->keys[ESC] = 1;
+	{
+		destory_game_mlx(game);
+		exit(0);
+	}
 	return (1);
 }
 
