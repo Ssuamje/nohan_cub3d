@@ -10,10 +10,16 @@ int		key_release(int key_code, t_game *game);
 int		print_key_press(t_game *game);
 void	init_game_keys(t_game *game);
 
+void leaks()
+{
+	system("leaks cub3D");
+}
+
 int main()
 {
 	t_game	game;
 	
+	atexit(leaks);
 	init_game_mlx(&game);
 	print_game(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
@@ -62,6 +68,7 @@ void	print_game(t_game *game)
 
 int		destory_game_mlx(t_game *game)
 {
+	leaks();
 	mlx_destroy_image(game->mlx, game->img);
 	mlx_destroy_window(game->mlx, game->win);
 	free(game->mlx);
