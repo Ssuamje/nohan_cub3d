@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:43 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:26:33 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:32:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 #endif
 #ifndef SCREEN_HEIGHT
 # define SCREEN_HEIGHT 480
+#endif
+#ifndef GAME_NAME
+# define GAME_NAME "cub3D"
 #endif
 
 enum	e_errno{
@@ -90,12 +93,16 @@ typedef struct s_info
 
 typedef struct s_game
 {
+	void			*mlx;
+	void			*win;
+	void			*img;
 	char			*texture[4];
 	int				floor;
 	int				ceiling;
 	int				map_row;
 	int				map_col;
 	int				**map;
+	
 	
 } t_game;
 
