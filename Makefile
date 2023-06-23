@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/06/23 15:43:59 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/23 16:17:01 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ elements_init.c\
 info_init.c\
 parsing_utils.c\
 map_init.c\
-copy_map.c)
+game_init.c)
 
 DIR_GNL= ./get_next_line/
 SRC_GNL =$(addprefix $(DIR_GNL),\
@@ -39,7 +39,7 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-mlx_main.c
+main.c
 # raycast.c
 
 SRCS = \

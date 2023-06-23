@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:49 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 15:39:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 16:16:45 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	leakss()
-// {
-// 	system("leaks cub3D");
-// }
+void	leakss()
+{
+	system("leaks cub3D");
+}
 
-// int	main(int ac, char **av)
-// {
-// 	t_info	info;
-// 	t_game	game;
+int	main(int ac, char **av)
+{
+	t_info	info;
+	t_game	game;
 
-// 	if (ac != 2 || is_extension_valid(av[1]))
-// 		exit_error(ERR_ARG);
-// 	info_init(&info, av[1]);
-// 	game_init(&info, &game);
-// 	// raycast(&info);
-// 	return EXIT_SUCCESS;
-// }
+	if (ac != 2 || is_extension_valid(av[1]))
+		exit_error(ERR_ARG);
+	info_init(&info, av[1]);
+	game_init(&info, &game);
+	// raycast(&info);
+	atexit(leakss);
+	return EXIT_SUCCESS;
+}

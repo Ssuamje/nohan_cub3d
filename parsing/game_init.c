@@ -1,5 +1,25 @@
 #include "../cub3d.h"
 
+int rgbToHex(int red, int green, int blue) {
+    return (red << 16) | (green << 8) | blue;
+}
+
+void	free_info_map(t_info *info)
+{
+	t_map	*tmp;
+
+	tmp = info->map;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	while (tmp != NULL)
+	{
+		free(tmp->next);
+		free(tmp->line);
+		tmp = tmp->prev;
+	}
+	free(info->map);
+}
+
 void	copy_map(t_info	*info, t_game *game)
 {
 	int		i;
@@ -32,9 +52,36 @@ void	copy_map(t_info	*info, t_game *game)
 		}
 		tmp = tmp->next;
 	}
+	free_info_map(info);
+	game->map_col = info->map_height;
+	game->map_row = info->map_width;
+}
+
+void	copy_texture(t_info *info, t_game *game)
+{
+	game->texture[NORTH] = ft_linedup(info->north_path);
+	free(info->north_path);
+	game->texture[SOUTH] = ft_linedup(info->south_path);
+	free(info->south_path);
+	game->texture[EAST] = ft_linedup(info->east_path);
+	free(info->east_path);
+	game->texture[WEST] = ft_linedup(info->west_path);
+	free(info->west_path);
 }
 
 void	game_init(t_info *info, t_game *game)
 {
 	copy_map(info, game);
+	copy_texture(info, game);
+	game->ceiling = rgbToHex(info->c_rgb[0],info->c_rgb[1],info->c_rgb[2]);
+	game->floor = rgbToHex(info->f_rgb[0],info->f_rgb[1],info->f_rgb[2]);
+	printf("%d and %d", game->ceiling, game->floor);
+
 }
+	// free(game->texture[NORTH]);
+	// free(game->texture[SOUTH]);
+	// free(game->texture[EAST]);
+	// free(game->texture[WEST]);
+	// for (int i = 0; i < game->map_col; i++)
+	// 	free(game->map[i]);
+	// free(game->map);

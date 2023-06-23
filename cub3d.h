@@ -92,7 +92,6 @@ enum e_key_masks
 typedef struct s_info
 {
 	int				fd; // 얘도 없어도 됨
-	char			*textures[4];
 	char			*north_path; // path to textures
 	char			*south_path;
 	char			*west_path;
@@ -102,7 +101,6 @@ typedef struct s_info
 	struct s_map	*map; // 없애기
 	int				map_width;
 	int				map_height;
-	int				**world_map;
 }	t_info;
 
 typedef struct s_game
@@ -186,7 +184,11 @@ void	check_empty_line(t_map *map);
 void	map_start(t_info *info);
 void	map_init(t_info *info);
 
-void	copy_map(t_info	*info);
+/* ./parsing/game_init.c */
+void	free_info_map(t_info *info);
+void	copy_map(t_info	*info, t_game *game);
+void	copy_texture(t_info *info, t_game *game);
+void	game_init(t_info *info, t_game *game);
 
 /* ./get_next_line/get_next_line_utils.c */
 
