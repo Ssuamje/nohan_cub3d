@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 20:21:15 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/22 22:22:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/23 12:45:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,26 @@ void readKeys(t_vec pos, t_vec dir, t_vec plane)
             pos.y -= dir.y * move_speed;
     }
 }
+/**
+ * 위 코드 블록"if (key_pressed(123))"은 왼쪽 화살표 키가 눌렸을 때, 플레이어의 방향과 시야를 왼쪽으로 회전시키는 부분입니다. 해당 부분의 계산 과정과 이유를 설명해드리겠습니다.
+old_dir_x 변수를 사용하여 현재 dir.x 값을 저장합니다. 이는 dir.x 값을 변경하기 전의 원래 값을 보존하기 위한 것입니다.
+dir.x 값을 새로운 값으로 업데이트합니다. 회전 변환 행렬을 사용하여 dir.x와 dir.y 값을 새로운 회전된 값으로 계산합니다. 회전 변환 행렬은 2D 회전 변환을 수행하는 데 사용됩니다.
+회전 변환 행렬을 사용하여 (dir.x, dir.y) 벡터를 rot_speed만큼의 각도로 시계 방향으로 회전시키면 다음과 같은 계산이 이루어집니다:
+---
+dir.x = dir.x * cos(rot_speed) - dir.y * sin(rot_speed);
+dir.y = old_dir_x * sin(rot_speed) + dir.y * cos(rot_speed);
+---
+이를 통해 dir.x와 dir.y 값이 회전된 새로운 방향 벡터로 업데이트됩니다.
+마찬가지로 old_plane_x 변수를 사용하여 현재 plane.x 값을 저장합니다. 이는 plane.x 값을 변경하기 전의 원래 값을 보존하기 위한 것입니다.
+plane.x 값을 새로운 값으로 업데이트합니다. 방향 벡터와 마찬가지로 회전 변환 행렬을 사용하여 plane.x와 plane.y 값을 새로운 회전된 값으로 계산합니다.
+---
+plane.x = plane.x * cos(rot_speed) - plane.y * sin(rot_speed);
+plane.y = old_plane_x * sin(rot_speed) + plane.y * cos(rot_speed);
+---
+이를 통해 plane.x와 plane.y 값이 회전된 새로운 시야 벡터로 업데이트됩니다.
+결과적으로, 해당 코드 블록은 왼쪽 화살표 키가 눌리면 플레이어의 방향과 시야를 시계 방향으로 rot_speed만큼 회전시키는 것입니다. 이를 통해 플레이어는 왼쪽으로 회전한 상태에서 이동 및 시야를 조작할 수 있게 됩니다.
+*/
+
 
 //코파일럿
 int key_pressed(int key)
