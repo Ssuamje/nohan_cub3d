@@ -64,8 +64,8 @@ endian : 이미지의 픽셀 색상 저장 방식(little endian = 0, big endian 
 void	init_game_ray_condition(t_game *game)
 {
 	//to-do : 맵에 따라 알맞게 설정하기
-	game->pos.x = 3;
-	game->pos.y = 3;
+	game->pos.x = 7;
+	game->pos.y = 7;
 	game->dir.x = 1;
 	game->dir.y = 0;
 	game->plane.x = 0;
@@ -210,13 +210,13 @@ void	raycast(t_game *game)
 		// 	game->color = 0;
 		
 		// choose wall color 2
-		if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
-			game->color = 0xFFFF00;
-		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 2)
+		if (game->map[(int)game->coord.y][(int)game->coord.x] == 1)
+			game->color = 0x00FF00;
+		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 2)
 			game->color = 0x0000FF;
-		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 3)
+		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 3)
 			game->color = 0xFF0000;
-		else if (game->map[(int)game->coord.x][(int)game->coord.y] == 4)
+		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 4)
 			game->color = 0x00FFFF;
 		else
 			game->color = 0xFFFFFF;
