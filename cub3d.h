@@ -16,7 +16,7 @@
 # define NO_MORE_TO_READ NULL
 
 # define MOVE_SPEED 0.05
-# define ROTATE_SPEED 0.05
+# define ROTATE_SPEED 0.005
 
 #ifndef SCREEN_WIDTH
 # define SCREEN_WIDTH 640

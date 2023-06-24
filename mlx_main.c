@@ -18,6 +18,7 @@ void	clear_image(t_game *game);
 void	raycast(t_game *game);
 void	set_wall_texture(t_game *game);
 void	set_colors(t_game *game);
+int		read_keys_and_move(t_game *game);
 
 
 void leaks()
@@ -41,6 +42,7 @@ int main(int ac, char **av)
 	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
 	hook_key_events(&game);
 	mlx_loop_hook(game.mlx, &run_game, &game);
+	// mlx_loop_hook(game.mlx, &read_keys_and_move, &game);
 	mlx_loop(game.mlx);
 	destory_game_mlx(&game);
 }
@@ -166,6 +168,7 @@ int		key_release(int key_code, t_game *game)
 
 int		run_game(t_game *game)
 {
+	read_keys_and_move(game);
 	clear_image(game);
 	raycast(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
@@ -230,8 +233,9 @@ void	raycast(t_game *game)
 	}
 }
 
-void	read_keys_and_move(t_game *game)
+int	read_keys_and_move(t_game *game)
 {
+	printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
 	if (game->keys[W])
 	{
 		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
@@ -284,6 +288,7 @@ void	read_keys_and_move(t_game *game)
 		game->plane.x = game->plane.x * cos(ROTATE_SPEED) - game->plane.y * sin(ROTATE_SPEED);
 		game->plane.y = old_plane_x * sin(ROTATE_SPEED) + game->plane.y * cos(ROTATE_SPEED);
 	}
+	return (1);
 }
 
 void	set_wall_texture(t_game *game)
