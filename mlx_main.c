@@ -36,7 +36,7 @@ int main(int ac, char **av)
 		exit_error(ERR_ARG);
 	info_init(&info, av[1]);
 	game_init(&info, &game);
-	// print_int_map(&game); <- segfault
+	print_int_map(&game);
 	init_game_mlx(&game);
 	print_game(&game);
 	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
@@ -236,6 +236,7 @@ void	raycast(t_game *game)
 int	read_keys_and_move(t_game *game)
 {
 	printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
+	printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
 	if (game->keys[W])
 	{
 		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
@@ -339,20 +340,18 @@ int		print_key_press(t_game *game)
 
 void	print_int_map(t_game *game)
 {
+	printf("map_row : %d\n", game->map_row);
+	printf("map_col : %d\n", game->map_col);
 	int i;
 	int j;
 
-	i = 0;
-	while (i < game->map_row)
+	i = -1;
+	while (++i < game->map_row)
 	{
-		j = 0;
-		while (j < game->map_col)
-		{
+		j = -1;
+		while (++j < game->map_col)
 			printf("%d ", game->map[i][j]);
-			j++;
-		}
 		printf("\n");
-		i++;
 	}
 }
 

@@ -53,8 +53,8 @@ void	copy_map(t_info	*info, t_game *game)
 		tmp = tmp->next;
 	}
 	free_info_map(info);
-	game->map_col = info->map_height;
-	game->map_row = info->map_width;
+	game->map_col = info->map_width;
+	game->map_row = info->map_height;
 }
 
 void	copy_texture(t_info *info, t_game *game)
@@ -75,8 +75,7 @@ void	game_init(t_info *info, t_game *game)
 	copy_texture(info, game);
 	game->ceiling = rgb_to_hex(info->c_rgb[0],info->c_rgb[1],info->c_rgb[2]);
 	game->floor = rgb_to_hex(info->f_rgb[0],info->f_rgb[1],info->f_rgb[2]);
-	printf("%06X and %06X", game->ceiling, game->floor);
-
+	printf("%06X and %06X\n", game->ceiling, game->floor);
 }
 	// free(game->texture[NORTH]);
 	// free(game->texture[SOUTH]);
