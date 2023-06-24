@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:13:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/23 21:46:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/24 09:50:21 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void    set_side_distance(t_game *game)
     if (game->ray_dir.x < 0)
     {
         game->step.x = -1;
-        game->side_dist.x = (game->pos.x - game->coord.x) * game->side_dist.x;
+        game->side_dist.x = (game->pos.x - game->coord.x) * game->delta_dist.x;
     }
     else
     {
@@ -73,7 +73,7 @@ void    set_side_distance(t_game *game)
     if (game->ray_dir.y < 0)
     {
         game->step.y = -1;
-        game->side_dist.y = (game->pos.y - game->coord.y) * game->side_dist.y;
+        game->side_dist.y = (game->pos.y - game->coord.y) * game->delta_dist.y;
     }
     else
     {
@@ -103,10 +103,12 @@ void    dda(t_game *game)
     }
 
     if (game->side == 0)
-        game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x);
+        game->perp_wall_dist = ((game->side_dist.x - game->delta_dist.x) + (1 - game->step.x) / 2) / game->ray_dir.x;
+        // game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x);
         // game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x) * game->ray_dir.x;
     else
-        game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y);
+        game->perp_wall_dist = ((game->side_dist.y - game->delta_dist.y) + (1 - game->step.y) / 2) / game->ray_dir.y;
+        // game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y);
         // game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y) * game->ray_dir.y;
     
 }

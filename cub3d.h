@@ -30,6 +30,9 @@
 #ifndef TEXTURE_WIDTH
 # define TEXTURE_WIDTH 64
 #endif
+#ifndef TEXTURE_HEIGHT
+# define TEXTURE_HEIGHT 64
+#endif
 
 enum	e_errno{
 	ERR_ELEM_INVALID,

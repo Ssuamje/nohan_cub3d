@@ -66,7 +66,7 @@ void	init_game_ray_condition(t_game *game)
 	//to-do : 맵에 따라 알맞게 설정하기
 	game->pos.x = 3;
 	game->pos.y = 3;
-	game->dir.x = -1;
+	game->dir.x = 1;
 	game->dir.y = 0;
 	game->plane.x = 0;
 	game->plane.y = 0.66;
@@ -181,17 +181,17 @@ void	raycast(t_game *game)
 	{
 		// calculate ray position and direction
 		game->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		set_ray_direction(game);
 		set_map_position(game);
+		set_ray_direction(game);
 		set_delta_distance(game);
 		set_side_distance(game);
 		// perform DDA
 		dda(game);
 		// calculate distance projected on camera direction
-		if (game->side == 0)
-			game->perp_wall_dist = (game->coord.x - game->pos.x + (1 - game->step.x) / 2) / game->ray_dir.x;
-		else
-			game->perp_wall_dist = (game->coord.y - game->pos.y + (1 - game->step.y) / 2) / game->ray_dir.y;
+		// if (game->side == 0)
+		// 	game->perp_wall_dist = (game->coord.x - game->pos.x + (1 - game->step.x) / 2) / game->ray_dir.x;
+		// else
+		// 	game->perp_wall_dist = (game->coord.y - game->pos.y + (1 - game->step.y) / 2) / game->ray_dir.y;
 		// calculate height of line to draw on screen
 		game->line_height = (int)(SCREEN_HEIGHT / game->perp_wall_dist);
 		// calculate lowest and highest pixel to fill in current stripe
@@ -203,9 +203,9 @@ void	raycast(t_game *game)
 			game->draw_end = SCREEN_HEIGHT - 1;
 
 		// // choose wall color 1
-		// set_wall_texture(game);
+		set_wall_texture(game);
 		// if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
-		// 	set_colors(game);
+			set_colors(game);
 		// else
 		// 	game->color = 0;
 		
@@ -298,6 +298,8 @@ void	set_wall_texture(t_game *game)
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
 	if (game->side == 1 && game->ray_dir.y < 0)
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
+	game->step.y = 1.0 * TEXTURE_HEIGHT / game->line_height; // step.y? step.x?
+	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step.y;
 }
 
 void	set_colors(t_game *game)
