@@ -26,6 +26,12 @@ void leaks()
 	system("leaks cub3D");
 }
 
+/**
+ * To-Do
+ * 유효하지 않은 맵파일(없거나 권한이 없는, 열리지 않는), 유효하지 않은 확장자
+ * 
+*/
+
 int main(int ac, char **av)
 {
 	t_info	info;
@@ -208,21 +214,21 @@ void	raycast(t_game *game)
 		// // choose wall color 1
 		set_wall_texture(game);
 		// if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
-			set_colors(game);
+		set_colors(game);
 		// else
 		// 	game->color = 0;
 		
 		// choose wall color 2
-		if (game->map[(int)game->coord.y][(int)game->coord.x] == 1)
-			game->color = 0x00FF00;
-		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 2)
-			game->color = 0x0000FF;
-		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 3)
-			game->color = 0xFF0000;
-		else if (game->map[(int)game->coord.y][(int)game->coord.x] == 4)
-			game->color = 0x00FFFF;
-		else
-			game->color = 0xFFFFFF;
+		// if (game->map[(int)game->coord.y][(int)game->coord.x] == 1)
+		// 	game->color = 0x00FF00;
+		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 2)
+		// 	game->color = 0x0000FF;
+		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 3)
+		// 	game->color = 0xFF0000;
+		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 4)
+		// 	game->color = 0x00FFFF;
+		// else
+		// 	game->color = 0xFFFFFF;
 
 		// give x and y sides different brightness
 		if (game->side == 1)
@@ -237,6 +243,7 @@ int	read_keys_and_move(t_game *game)
 {
 	printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
 	printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
+	
 	if (game->keys[W])
 	{
 		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
