@@ -28,10 +28,10 @@
 # define GAME_NAME "cub3D"
 #endif
 #ifndef TEXTURE_WIDTH
-# define TEXTURE_WIDTH 64
+# define TEXTURE_WIDTH 242
 #endif
 #ifndef TEXTURE_HEIGHT
-# define TEXTURE_HEIGHT 64
+# define TEXTURE_HEIGHT 242
 #endif
 
 enum	e_errno{

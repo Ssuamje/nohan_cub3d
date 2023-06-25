@@ -1,10 +1,10 @@
 
 F 0,0,0
-NO ./textures/mossy.xpm
-EA ./textures/pillar.xpm
+NO ./textures/haru_north.xpm
+EA ./textures/odeok_east.xpm
 
-SO ./textures/redbrick.xpm
-WE ./textures/wood.xpm
+SO ./textures/haru_south.xpm
+WE ./textures/odeok_west.xpm
 C 255,255,255
 
 1111111111111

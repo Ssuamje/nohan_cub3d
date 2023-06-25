@@ -258,9 +258,9 @@ void	set_draw_buffer(t_game *game, int x)
 		else if (game->side == 0 && game->ray_dir.x < 0)
 			game->color = get_color(game, WEST);
 		else if (game->side == 1 && game->ray_dir.y > 0)
-			game->color = get_color(game, SOUTH);
-		else
 			game->color = get_color(game, NORTH);
+		else
+			game->color = get_color(game, SOUTH);
 		game->draw_buffer[y][x] = game->color;
 		y++;
 	}
@@ -296,9 +296,9 @@ void	calculate_texture(t_game *game)
 		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
 	game->wall_x -= floor(game->wall_x);
 	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
-	if (game->side == 0 && game->ray_dir.x < 0)
+	if (game->side == 0 && game->ray_dir.x > 0)
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
-	if (game->side == 1 && game->ray_dir.y > 0)
+	if (game->side == 1 && game->ray_dir.y < 0)
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
 	game->step_texture = 1.0 * TEXTURE_HEIGHT / game->line_height;
 	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step_texture;
