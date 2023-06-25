@@ -2,7 +2,6 @@
 
 void	init_game_mlx(t_game *game);
 void	print_game(t_game *game);
-int		destory_game_mlx(t_game *game);
 void	hook_key_events(t_game *game);
 void	hook_key_events(t_game *game);
 int		key_press(int key_code, t_game *game);
@@ -48,9 +47,7 @@ int main(int ac, char **av)
 	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
 	hook_key_events(&game);
 	mlx_loop_hook(game.mlx, &run_game, &game);
-	// mlx_loop_hook(game.mlx, &read_keys_and_move, &game);
 	mlx_loop(game.mlx);
-	destory_game_mlx(&game);
 }
 
 void	init_game_mlx(t_game *game)
@@ -115,14 +112,6 @@ void	print_game(t_game *game)
 	printf("east : %s\n", game->texture[EAST]);
 }
 
-int		destory_game_mlx(t_game *game)
-{
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_image(game->mlx, game->img);
-	free(game->mlx);
-	return (1);
-}
-
 void	hook_key_events(t_game *game)
 {
 	mlx_hook(game->win, PRESS, MASK_PRESS, &key_press, game);
@@ -170,7 +159,6 @@ int		key_release(int key_code, t_game *game)
 int		run_game(t_game *game)
 {
 	read_keys_and_move(game);
-	clear_image(game);
 	raycast(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (1);
@@ -354,22 +342,4 @@ void    draw_vertical(t_game *game, int x)
         my_mlx_pixel_put(game, x, y, game->floor);
         y++;
     }
-}
-
-void	clear_image(t_game *game)
-{
-	int x;
-	int y;
-
-	x = 0;
-	while (x < SCREEN_WIDTH)
-	{
-		y = 0;
-		while (y < SCREEN_HEIGHT)
-		{
-			my_mlx_pixel_put(game, x, y, 0x000000);
-			y++;
-		}
-		x++;
-	}
 }
