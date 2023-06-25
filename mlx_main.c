@@ -144,10 +144,7 @@ int		key_press(int key_code, t_game *game)
 	else if (key_code == KEY_RIGHT)
 		game->keys[RIGHT] = 1;
 	else if (key_code == KEY_ESC)
-	{
-		destory_game_mlx(game);
 		exit(0);
-	}
 	printf("PRESSED!\n");
 	return (1);
 }
@@ -166,8 +163,6 @@ int		key_release(int key_code, t_game *game)
 		game->keys[LEFT] = 0;
 	else if (key_code == KEY_RIGHT)
 		game->keys[RIGHT] = 0;
-	else if (key_code == KEY_ESC)
-		game->keys[ESC] = 0;
 	printf("RELEASED!\n");
 	return (1);
 }

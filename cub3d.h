@@ -134,6 +134,15 @@ typedef struct s_fps
 	double old_time;
 }	t_fps;
 
+typedef struct s_img
+{
+	void	*img;
+	int		*data;
+	int		bpp;
+	int		size_l;
+	int		endian;
+}	t_img;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -144,6 +153,7 @@ typedef struct s_game
 	int				img_line_size;
 	int				endian;
 	char			*texture[4];
+	t_img			texture_imgs[4];
 	int				**map;
 	int				map_row;
 	int				map_col;
