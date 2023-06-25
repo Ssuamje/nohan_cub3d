@@ -49,6 +49,11 @@ void	copy_map(t_info	*info, t_game *game)
 				game->map[i][j] = 4;
 			else if (tmp->line[j] == 'W')
 				game->map[i][j] = 5;
+			if (tmp->line[j] == 'N' || tmp->line[j] == 'S' || tmp->line[j] == 'E' || tmp->line[j] == 'W')
+			{
+				game->pos.x = i;
+				game->pos.y = j;
+			}
 		}
 		tmp = tmp->next;
 	}

@@ -10,6 +10,7 @@ int		print_key_press(t_game *game);
 void	init_game_keys(t_game *game);
 int		run_game(t_game *game);
 void	init_game_ray_condition(t_game *game);
+void	init_game_textures(t_game *game);
 void	print_int_map(t_game *game);
 void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 void    draw_vertical(t_game *game, int x);
@@ -58,6 +59,7 @@ void	init_game_mlx(t_game *game)
 	game->img_data = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->img_line_size, &game->endian);
 	init_game_keys(game);
 	init_game_ray_condition(game);
+	init_game_textures(game);
 }
 /**
  * img_ptr : 사용할 이미지를 지정한다
@@ -66,11 +68,22 @@ size_line : 이미지 한 줄을 메모리에 저장하는데 사용되는 바�
 endian : 이미지의 픽셀 색상 저장 방식(little endian = 0, big endian = 1)
 */
 
+void	init_game_textures(t_game *game)
+{
+	int dummy;
+	game->texture_imgs[NORTH].img = mlx_xpm_file_to_image(game->mlx, game->texture[NORTH], &dummy, &dummy);
+	game->texture_imgs[NORTH].data = mlx_get_data_addr(game->texture_imgs[NORTH].img, &game->texture_imgs[NORTH].bits_per_pixel, &game->texture_imgs[NORTH].line_length, &game->texture_imgs[NORTH].endian);
+	game->texture_imgs[SOUTH].img = mlx_xpm_file_to_image(game->mlx, game->texture[SOUTH], &dummy, &dummy);
+	game->texture_imgs[SOUTH].data = mlx_get_data_addr(game->texture_imgs[SOUTH].img, &game->texture_imgs[SOUTH].bits_per_pixel, &game->texture_imgs[SOUTH].line_length, &game->texture_imgs[SOUTH].endian);
+	game->texture_imgs[WEST].img = mlx_xpm_file_to_image(game->mlx, game->texture[WEST], &dummy, &dummy);
+	game->texture_imgs[WEST].data = mlx_get_data_addr(game->texture_imgs[WEST].img, &game->texture_imgs[WEST].bits_per_pixel, &game->texture_imgs[WEST].line_length, &game->texture_imgs[WEST].endian);
+	game->texture_imgs[EAST].img = mlx_xpm_file_to_image(game->mlx, game->texture[EAST], &dummy, &dummy);
+	game->texture_imgs[EAST].data = mlx_get_data_addr(game->texture_imgs[EAST].img, &game->texture_imgs[EAST].bits_per_pixel, &game->texture_imgs[EAST].line_length, &game->texture_imgs[EAST].endian);
+}
+
 void	init_game_ray_condition(t_game *game)
 {
 	//to-do : 맵에 따라 알맞게 설정하기
-	game->pos.x = 7;
-	game->pos.y = 7;
 	game->dir.x = 1;
 	game->dir.y = 0;
 	game->plane.x = 0;
@@ -195,8 +208,8 @@ void	raycast(t_game *game)
 
 int	read_keys_and_move(t_game *game)
 {
-	printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
-	printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
+	// printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
+	// printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
 	
 	if (game->keys[W])
 	{

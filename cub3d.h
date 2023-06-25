@@ -137,9 +137,9 @@ typedef struct s_fps
 typedef struct s_img
 {
 	void	*img;
-	int		*data;
-	int		bpp;
-	int		size_l;
+	char	*data;
+	int		bits_per_pixel;
+	int		line_length;
 	int		endian;
 }	t_img;
 
