@@ -183,52 +183,23 @@ void	raycast(t_game *game)
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		// calculate ray position and direction
 		game->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 		set_map_position(game);
 		set_ray_direction(game);
 		set_delta_distance(game);
 		set_side_distance(game);
-		// perform DDA
 		dda(game);
-		// calculate distance projected on camera direction
-		// if (game->side == 0)
-		// 	game->perp_wall_dist = (game->coord.x - game->pos.x + (1 - game->step.x) / 2) / game->ray_dir.x;
-		// else
-		// 	game->perp_wall_dist = (game->coord.y - game->pos.y + (1 - game->step.y) / 2) / game->ray_dir.y;
-		// calculate height of line to draw on screen
 		game->line_height = (int)(SCREEN_HEIGHT / game->perp_wall_dist);
-		// calculate lowest and highest pixel to fill in current stripe
 		game->draw_start = -game->line_height / 2 + SCREEN_HEIGHT / 2;
 		if (game->draw_start < 0)
 			game->draw_start = 0;
 		game->draw_end = game->line_height / 2 + SCREEN_HEIGHT / 2;
 		if (game->draw_end >= SCREEN_HEIGHT)
 			game->draw_end = SCREEN_HEIGHT - 1;
-
-		// // choose wall color 1
 		set_wall_texture(game);
-		// if (game->map[(int)game->coord.x][(int)game->coord.y] == 1)
 		set_colors(game);
-		// else
-		// 	game->color = 0;
-		
-		// choose wall color 2
-		// if (game->map[(int)game->coord.y][(int)game->coord.x] == 1)
-		// 	game->color = 0x00FF00;
-		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 2)
-		// 	game->color = 0x0000FF;
-		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 3)
-		// 	game->color = 0xFF0000;
-		// else if (game->map[(int)game->coord.y][(int)game->coord.x] == 4)
-		// 	game->color = 0x00FFFF;
-		// else
-		// 	game->color = 0xFFFFFF;
-
-		// give x and y sides different brightness
 		if (game->side == 1)
 			game->color /= 2;
-		// draw the pixels of the stripe as a vertical line
 		draw_vertical(game, x);
 		x++;
 	}
