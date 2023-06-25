@@ -16,9 +16,14 @@ void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
 void    draw_vertical(t_game *game, int x);
 void	clear_image(t_game *game);
 void	raycast(t_game *game);
-void	set_wall_texture(t_game *game);
-void	set_colors(t_game *game);
 int		read_keys_and_move(t_game *game);
+void	set_draw_range(t_game *game);
+void	calculate_texture(t_game *game);
+void	set_draw_buffer(t_game *game, int x);
+void	put_buffer_to_image(t_game *game);
+unsigned int	get_color(t_game *game, int direction);
+void	clear_draw_buffer(t_game *game);
+
 
 
 void leaks()
@@ -84,7 +89,7 @@ void	init_game_textures(t_game *game)
 void	init_game_ray_condition(t_game *game)
 {
 	//to-do : 맵에 따라 알맞게 설정하기
-	game->dir.x = 1;
+	game->dir.x = -1;
 	game->dir.y = 0;
 	game->plane.x = 0;
 	game->plane.y = 0.66;
@@ -165,16 +170,34 @@ int		key_release(int key_code, t_game *game)
 		game->keys[LEFT] = 0;
 	else if (key_code == KEY_RIGHT)
 		game->keys[RIGHT] = 0;
-	printf("RELEASED!\n");
 	return (1);
 }
 
 int		run_game(t_game *game)
 {
-	read_keys_and_move(game);
 	raycast(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	// clear_draw_buffer(game);
+	read_keys_and_move(game);
 	return (1);
+}
+
+void	clear_draw_buffer(t_game *game)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = 0;
+		while (y < SCREEN_HEIGHT)
+		{
+			game->draw_buffer[y][x] = 0;
+			y++;
+		}
+		x++;
+	}
 }
 
 void	raycast(t_game *game)
@@ -185,31 +208,117 @@ void	raycast(t_game *game)
 	while (x < SCREEN_WIDTH)
 	{
 		game->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		set_map_position(game);
 		set_ray_direction(game);
+		set_map_position(game);
 		set_delta_distance(game);
 		set_side_distance(game);
 		dda(game);
-		game->line_height = (int)(SCREEN_HEIGHT / game->perp_wall_dist);
-		game->draw_start = -game->line_height / 2 + SCREEN_HEIGHT / 2;
-		if (game->draw_start < 0)
-			game->draw_start = 0;
-		game->draw_end = game->line_height / 2 + SCREEN_HEIGHT / 2;
-		if (game->draw_end >= SCREEN_HEIGHT)
-			game->draw_end = SCREEN_HEIGHT - 1;
-		set_wall_texture(game);
-		set_colors(game);
-		if (game->side == 1)
-			game->color /= 2;
-		draw_vertical(game, x);
+		set_draw_range(game);
+		calculate_texture(game);
+		set_draw_buffer(game, x);
+		x++;
+	}
+	put_buffer_to_image(game);
+}
+
+void	put_buffer_to_image(t_game *game)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = 0;
+		while (y < SCREEN_HEIGHT)
+		{
+			my_mlx_pixel_put(game, x, y, game->draw_buffer[y][x]);
+			y++;
+		}
 		x++;
 	}
 }
 
+void	set_draw_buffer(t_game *game, int x)
+{
+	int y;
+
+	y = 0;
+	while (y < game->draw_start)
+	{
+		game->draw_buffer[y][x] = game->ceiling;
+		y++;
+	}
+	while (y < game->draw_end)
+	{
+		game->wall_texture_y = (int)game->texture_pos;
+		game->texture_pos += game->step_texture;
+		if (game->side == 0 && game->ray_dir.x > 0)
+			game->color = get_color(game, EAST);
+		else if (game->side == 0 && game->ray_dir.x < 0)
+			game->color = get_color(game, WEST);
+		else if (game->side == 1 && game->ray_dir.y > 0)
+			game->color = get_color(game, SOUTH);
+		else
+			game->color = get_color(game, NORTH);
+		game->draw_buffer[y][x] = game->color;
+		y++;
+	}
+	while (y < SCREEN_HEIGHT)
+	{
+		game->draw_buffer[y][x] = game->floor;
+		y++;
+	}
+}
+
+unsigned int	get_color(t_game *game, int direction)
+{
+	int x;
+	int y;
+	unsigned int color;
+	t_img	tex;
+
+	x = game->wall_texture_x;
+	y = game->wall_texture_y;
+	tex = game->texture_imgs[direction];
+	color = *(unsigned int *)(tex.data + (y * tex.line_length + x * (tex.bits_per_pixel / 8)));
+	// color = 0x00ff00;
+	if (game->side == 1)
+		color = (color >> 1) & 8355711;
+	return (color);
+}
+
+void	calculate_texture(t_game *game)
+{
+	if (game->side == 0)
+		game->wall_x = game->pos.y + game->perp_wall_dist * game->ray_dir.y;
+	else
+		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
+	game->wall_x -= floor(game->wall_x);
+	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
+	if (game->side == 0 && game->ray_dir.x < 0)
+		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
+	if (game->side == 1 && game->ray_dir.y > 0)
+		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
+	game->step_texture = 1.0 * TEXTURE_HEIGHT / game->line_height;
+	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step_texture;
+}
+
+void	set_draw_range(t_game *game)
+{
+	game->line_height = (int)(SCREEN_HEIGHT / game->perp_wall_dist);
+	game->draw_start = -game->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (game->draw_start < 0)
+		game->draw_start = 0;
+	game->draw_end = game->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (game->draw_end >= SCREEN_HEIGHT)
+		game->draw_end = SCREEN_HEIGHT - 1;
+}
+
 int	read_keys_and_move(t_game *game)
 {
-	// printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
-	// printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
+	printf("w = %d, s = %d, d = %d, a = %d, left = %d, right = %d\n", game->keys[W], game->keys[S], game->keys[D], game->keys[A], game->keys[LEFT], game->keys[RIGHT]);
+	printf("pos.x = %f, pos.y = %f, dir.x = %f, dir.y = %f, plane.x = %f, plane.y = %f\n", game->pos.x, game->pos.y, game->dir.x, game->dir.y, game->plane.x, game->plane.y);
 	
 	if (game->keys[W])
 	{
@@ -239,9 +348,8 @@ int	read_keys_and_move(t_game *game)
 		if (game->map[(int)game->pos.x][(int)(game->pos.y + game->dir.x * MOVE_SPEED)] == 0)
 			game->pos.y += game->dir.x * MOVE_SPEED;
 	}
-	if (game->keys[LEFT])
+	if (game->keys[RIGHT])
 	{
-		// both camera direction and camera plane must be rotated
 		double old_dir_x;
 		double old_plane_x;
 		old_dir_x = game->dir.x;
@@ -251,9 +359,8 @@ int	read_keys_and_move(t_game *game)
 		game->plane.x = game->plane.x * cos(-ROTATE_SPEED) - game->plane.y * sin(-ROTATE_SPEED);
 		game->plane.y = old_plane_x * sin(-ROTATE_SPEED) + game->plane.y * cos(-ROTATE_SPEED);
 	}
-	if (game->keys[RIGHT])
+	if (game->keys[LEFT])
 	{
-		// both camera direction and camera plane must be rotated
 		double old_dir_x;
 		double old_plane_x;
 		old_dir_x = game->dir.x;
@@ -264,34 +371,6 @@ int	read_keys_and_move(t_game *game)
 		game->plane.y = old_plane_x * sin(ROTATE_SPEED) + game->plane.y * cos(ROTATE_SPEED);
 	}
 	return (1);
-}
-
-void	set_wall_texture(t_game *game)
-{
-	if (game->side == 0)
-		game->wall_x = game->pos.y + game->perp_wall_dist * game->ray_dir.y;
-	else
-		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
-	game->wall_x -= floor(game->wall_x);
-	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
-	if (game->side == 0 && game->ray_dir.x > 0)
-		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
-	if (game->side == 1 && game->ray_dir.y < 0)
-		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
-	game->step.y = 1.0 * TEXTURE_HEIGHT / game->line_height; // step.y? step.x?
-	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step.y;
-}
-
-void	set_colors(t_game *game)
-{
-	if (game->side == 0 && game->ray_dir.x > 0)
-		game->color = game->texture[EAST][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
-	else if (game->side == 0 && game->ray_dir.x < 0)
-		game->color = game->texture[WEST][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
-	else if (game->side == 1 && game->ray_dir.y > 0)
-		game->color = game->texture[SOUTH][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
-	else
-		game->color = game->texture[NORTH][TEXTURE_WIDTH * game->wall_texture_y + game->wall_texture_x];
 }
 
 int		print_key_press(t_game *game)
@@ -314,8 +393,6 @@ int		print_key_press(t_game *game)
 
 void	print_int_map(t_game *game)
 {
-	printf("map_row : %d\n", game->map_row);
-	printf("map_col : %d\n", game->map_col);
 	int i;
 	int j;
 

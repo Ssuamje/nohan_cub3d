@@ -15,8 +15,8 @@
 # define UNFILLED 0
 # define NO_MORE_TO_READ NULL
 
-# define MOVE_SPEED 0.05
-# define ROTATE_SPEED 0.005
+# define MOVE_SPEED 0.02
+# define ROTATE_SPEED 0.02
 
 #ifndef SCREEN_WIDTH
 # define SCREEN_WIDTH 640
@@ -137,7 +137,7 @@ typedef struct s_fps
 typedef struct s_img
 {
 	void	*img;
-	char	*data;
+	void	*data;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -167,7 +167,7 @@ typedef struct s_game
 	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
 	
 	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
-	int				camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
+	double			camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
 	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
 	t_vec			delta_dist; // delta-distance, side-dist에서 다음 x 또는 y 방향의 칸 사이의 거리
 	double			perp_wall_dist; // perpendicular-wall-distance, ray가 맞는 지점까지의 수직거리
@@ -184,6 +184,7 @@ typedef struct s_game
 	double			wall_x; // wall_x, 벽의 x 좌표
 	double			step_texture; // step_texture, 벽 텍스처의 y 좌표가 얼마나 증가하는지
 	double			texture_pos; // texture_pos, 벽 텍스처의 y 좌표
+	int				draw_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]; // draw_buffer, 픽셀의 색깔을 저장하는 버퍼
 } t_game;
 
 /* ./cub3d_utils.c */
