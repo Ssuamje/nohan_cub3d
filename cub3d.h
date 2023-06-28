@@ -15,7 +15,7 @@
 # define UNFILLED 0
 # define NO_MORE_TO_READ NULL
 
-# define MOVE_SPEED 0.02
+# define MOVE_SPEED 0.025
 # define ROTATE_SPEED 0.02
 
 #ifndef SCREEN_WIDTH
@@ -44,9 +44,6 @@ enum	e_errno{
 	ERR_WALL_INVALID,
 };
 
-/**
- * MAC_OS 키맵에 따른 값
-*/
 enum	e_key
 {
 	KEY_W = 13,
@@ -76,12 +73,16 @@ typedef struct s_map
 	struct s_map	*next;
 }	t_map;
 
-enum e_textures
+enum e_direction
 {
 	NORTH = 0,
 	SOUTH,
 	EAST,
 	WEST,
+	MAP_NORTH = 2,
+	MAP_SOUTH = 3,
+	MAP_EAST = 4,
+	MAP_WEST = 5,
 };
 
 enum e_key_events
@@ -117,22 +118,6 @@ typedef struct s_vector
     double x;
     double y;
 } t_vec;
-
-typedef struct s_int_vector 
-{
-	int x;
-	int y;
-} t_int_vec;
-
-/**
- * curr_time : 현재 프레임의 시각
- * old_time : 이전 프레임의 시각
-*/
-typedef struct s_fps
-{
-	double curr_time;
-	double old_time;
-}	t_fps;
 
 typedef struct s_img
 {
@@ -177,8 +162,6 @@ typedef struct s_game
 	int				line_height; // line-height, 세로선의 높이
 	int				draw_start; // draw-start, 세로선의 시작점
 	int				draw_end; // draw-end, 세로선의 끝점
-	t_fps			fps; // fps, 프레임 속도
-	//아래는 삭제의 여지가 있음(막 만들었음)
 	int				wall_texture_x; // wall_texture_x, 벽 텍스처의 x 좌표
 	int				wall_texture_y; // wall_texture_y, 벽 텍스처의 y 좌표
 	double			wall_x; // wall_x, 벽의 x 좌표
@@ -233,7 +216,7 @@ void	map_init(t_info *info);
 void	free_info_map(t_info *info);
 void	copy_map(t_info	*info, t_game *game);
 void	copy_texture(t_info *info, t_game *game);
-void	game_init(t_info *info, t_game *game);
+void	init_map(t_info *info, t_game *game);
 
 /* ./get_next_line/get_next_line_utils.c */
 
@@ -252,10 +235,17 @@ char	*get_msg_by_errno(int errno);
 void	exit_error(int errno);
 
 void    set_ray_direction(t_game *game);
+void	set_player_direction(t_game *game, int direction);
 void    set_map_position(t_game *game);
 void    set_delta_distance(t_game *game);
 void    set_step(t_game *game);
 void    set_side_distance(t_game *game);
 void    dda(t_game *game);
 int     ternary(int condition, int if_true, int if_false);
+
+void	init_game_mlx(t_game *game);
+void	init_game_textures(t_game *game);
+void	init_game_ray_condition(t_game *game);
+void	set_img_file_and_data(t_game *game, int direction);
+
 #endif

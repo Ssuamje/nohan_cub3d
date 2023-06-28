@@ -42,13 +42,13 @@ void	copy_map(t_info	*info, t_game *game)
 			else if (tmp->line[j] == '1')
 				game->map[i][j] = 1;
 			else if (tmp->line[j] == 'N')
-				game->map[i][j] = 2;
+				game->map[i][j] = MAP_NORTH;
 			else if (tmp->line[j] == 'S')
-				game->map[i][j] = 3;
+				game->map[i][j] = MAP_SOUTH;
 			else if (tmp->line[j] == 'E')
-				game->map[i][j] = 4;
+				game->map[i][j] = MAP_EAST;
 			else if (tmp->line[j] == 'W')
-				game->map[i][j] = 5;
+				game->map[i][j] = MAP_WEST;
 			if (tmp->line[j] == 'N' || tmp->line[j] == 'S' || tmp->line[j] == 'E' || tmp->line[j] == 'W')
 			{
 				game->pos.x = i;
@@ -74,7 +74,7 @@ void	copy_texture(t_info *info, t_game *game)
 	free(info->west_path);
 }
 
-void	game_init(t_info *info, t_game *game)
+void	init_map(t_info *info, t_game *game)
 {
 	copy_map(info, game);
 	copy_texture(info, game);

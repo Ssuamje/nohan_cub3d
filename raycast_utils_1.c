@@ -6,17 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:13:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/25 16:03:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/06/25 21:16:40 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/**
- * 고정값 : camera_x <- -1, 1 사이의 double로, 스크린의 x좌표에 따라 달라짐
- * fps도 미리 만들어 놓고 연산하게 하면 됨. 
- * map 벡터의 경우 int로 설정.
-*/
 
 void    set_ray_direction(t_game *game)
 {
@@ -32,18 +26,8 @@ void    set_map_position(t_game *game)
 
 void    set_delta_distance(t_game *game)
 {
-    // game->delta_dist.x = ternary(game->ray_dir.x == 0, INT32_MAX, fabs(1 / game->ray_dir.x));
-    // game->delta_dist.y = ternary(game->ray_dir.y == 0, INT32_MAX, fabs(1 / game->ray_dir.y));
     game->delta_dist.x = fabs(1 / game->ray_dir.x);
     game->delta_dist.y = fabs(1 / game->ray_dir.y);
-}
-
-int     ternary(int condition, int if_true, int if_false)
-{
-    if (condition)
-        return (if_true);
-    else
-        return (if_false);
 }
 
 void    set_step(t_game *game)
@@ -101,14 +85,9 @@ void    dda(t_game *game)
         if (game->map[(int)game->coord.x][(int)game->coord.y])
             break;
     }
-
     if (game->side == 0)
-        // game->perp_wall_dist = ((game->side_dist.x - game->delta_dist.x) + (1 - game->step.x) / 2) / game->ray_dir.x;
         game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x);
-        // game->perp_wall_dist = (game->side_dist.x - game->delta_dist.x) * game->ray_dir.x;
     else
-        // game->perp_wall_dist = ((game->side_dist.y - game->delta_dist.y) + (1 - game->step.y) / 2) / game->ray_dir.y;
         game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y);
-        // game->perp_wall_dist = (game->side_dist.y - game->delta_dist.y) * game->ray_dir.y;
 }
 

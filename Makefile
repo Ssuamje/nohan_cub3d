@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/06/23 20:39:55 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/25 18:35:15 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ exit_error.c)
 
 SRC_MAIN =\
 mlx_main.c\
-raycast_utils_1.c
-# raycast.c
+raycast_utils_1.c\
+init.c
 
 SRCS = \
 $(SRC_PARSING)\
