@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 16:25:49 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 16:16:45 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:05:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 		exit_error(ERR_ARG);
 	info_init(&info, av[1]);
 	game_init(&info, &game);
-	// raycast(&info);
+	raycast(&info);
 	atexit(leakss);
 	return EXIT_SUCCESS;
 }
