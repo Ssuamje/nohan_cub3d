@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:04:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 16:53:44 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 17:51:36 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ void	calculate_texture(t_game *game)
 		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
 	game->wall_x -= floor(game->wall_x);
 	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
-	if (game->side == HORIZONTAL && game->ray_dir.x > 0)
-		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
-	if (game->side == VERTICAL && game->ray_dir.y < 0)
+	if ((game->side == HORIZONTAL && game->ray_dir.x > 0)
+	|| (game->side == VERTICAL && game->ray_dir.y < 0))
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
 	game->step_texture = 1.0 * TEXTURE_HEIGHT / game->line_height;
-	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 \
-	+ game->line_height / 2) * game->step_texture;
+	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step_texture;
 }
