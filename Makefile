@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/03/08 09:46:33 by sanan            ###   ########.fr        #
+#    Updated: 2023/06/25 18:35:15 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRC_PARSING = $(addprefix $(DIR_PARSING),\
 check_wall.c\
 elements_init.c\
 info_init.c\
-map_init.c)
+parsing_utils.c\
+map_init.c\
+game_init.c)
 
 DIR_GNL= ./get_next_line/
 SRC_GNL =$(addprefix $(DIR_GNL),\
@@ -37,8 +39,9 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-cub3d_utils.c\
-cub3d.c
+mlx_main.c\
+raycast_utils_1.c\
+init.c
 
 SRCS = \
 $(SRC_PARSING)\
@@ -53,21 +56,30 @@ CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
-INCLUDE = -I./
+LIB_MLX = ./MLX/libmlx.dylib
+
+INCLUDE = -I./ -I./MLX
+
+MLX_LINK = -L$(dir $(LIB_MLX)) -lmlx
 
 all : $(NAME)
 	@$(ECHO) $(PURPLE) "🐶 cub3D is ready!" $(RESET)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(LIB_MLX)
 	@$(ECHO) $(CYAN) 🐶 assembling $(GREEN) $@
-	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) -o $(NAME)
+	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) $(LIB_MLX) $(MLX_LINK) -o $(NAME)
+	@mv $(LIB_MLX) ./$(notdir $(LIB_MLX))
 
 %.o : %.c
 	@$(ECHO) $(BLUE) 🐶 compiling $(GREEN) $<
 	@$(CC) $(WFLAGS) $(INCLUDE) -c $< -o $@
 
+$(LIB_MLX) :
+	@make -C $(dir $(LIB_MLX))
+
 clean :
 	@rm -rf $(OBJS)
+	@make -C $(dir $(LIB_MLX)) clean
 	@echo $(RED) "	   🐶 cleaned object files!" $(RESET)
 
 fclean : clean
