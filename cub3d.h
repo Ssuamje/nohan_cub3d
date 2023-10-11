@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:59:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 16:09:25 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ int				ft_strcmp(char *s1, char *s2);
 /* ./cub3d_utils2.c */
 int				rgb_to_hex(int red, int green, int blue);
 int				is_nsew(char c);
+void			check_path_valid(char *str);
+void			check_cases(t_map *tmp, char c);
 
 /* ./parsing/check_island_utils.c */
 void			check_island1(char **board, t_map *tmp, int *x, int *y);

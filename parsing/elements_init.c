@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 14:02:32 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:28:31 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,25 @@ void	check_path(t_info *info, char *line, int elements_cnt[])
 	if (!ft_strncmp("NO ", line, 3))
 	{
 		info->north_path = ft_linedup(line + 3);
+		check_path_valid(info->north_path);
 		elements_cnt[0] += FILLED;
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
 		info->south_path = ft_linedup(line + 3);
+		check_path_valid(info->south_path);
 		elements_cnt[1] += FILLED;
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
 		info->west_path = ft_linedup(line + 3);
+		check_path_valid(info->west_path);
 		elements_cnt[2] += FILLED;
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
 		info->east_path = ft_linedup(line + 3);
+		check_path_valid(info->east_path);
 		elements_cnt[3] += FILLED;
 	}
 }

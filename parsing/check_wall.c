@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:47:58 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 14:24:11 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:10:17 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	check_closed(t_map *map, int i, int j, int last)
 {
 	t_map	*tmp;
 	int		len;
-	int		next_len;
 
 	tmp = map;
 	while (tmp)
@@ -51,10 +50,11 @@ void	check_closed(t_map *map, int i, int j, int last)
 		len = ft_strlen(tmp->line) - 1;
 		while (++i < len && j != 0 && j != last)
 		{
+			check_cases(tmp, tmp->line[i]);
 			if (tmp->next)
 			{
-				next_len = ft_strlen(tmp->next->line) - 1;
-				if (tmp->line[i] != '1' && tmp->line[i] != ' ' && i > next_len)
+				if (tmp->line[i] != '1' && tmp->line[i] != ' '
+					&& i > (int)ft_strlen(tmp->next->line) - 1)
 					exit_error(ERR_WALL_INVALID);
 			}
 			if ((tmp->line[i] != '1' && tmp->line[i] != ' ')
