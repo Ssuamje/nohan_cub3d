@@ -36,7 +36,7 @@ void	check_side(t_map *map, int i, int j, int last)
 		}
 		j++;
 		tmp = tmp->next;
-	}	
+	}
 }
 
 void	check_closed(t_map *map, int i, int j, int last)
@@ -57,9 +57,9 @@ void	check_closed(t_map *map, int i, int j, int last)
 				if (tmp->line[i] != '1' && tmp->line[i] != ' ' && i > next_len)
 					exit_error(ERR_WALL_INVALID);
 			}
-			if ((tmp->line[i] != '1' && tmp->line[i] != ' ') 
+			if ((tmp->line[i] != '1' && tmp->line[i] != ' ')
 				&& (tmp->line[i - 1] == ' ' || tmp->line[i + 1] == ' '
-				|| tmp->prev->line[i] == ' ' || tmp->next->line[i] == ' '))
+					|| tmp->prev->line[i] == ' ' || tmp->next->line[i] == ' '))
 				exit_error(ERR_WALL_INVALID);
 		}
 		i = 0;
@@ -101,7 +101,7 @@ void	check_island(t_map *map, int i, int j, int last)
 	x = 0;
 	y = 0;
 	tmp = map;
-	board = malloc(sizeof(char *) * (last + 2));	
+	board = malloc(sizeof(char *) * (last + 2));
 	while (tmp)
 	{
 		len = ft_strlen(tmp->line);
