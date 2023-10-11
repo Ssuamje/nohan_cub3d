@@ -1,15 +1,15 @@
-
-F 0,0,1
+F 0,0,0
 NO ./textures/haru_north.xpm
 EA ./textures/odeok_east.xpm
 
 SO ./textures/haru_south.xpm
 WE ./textures/odeok_west.xpm
-C 0,0,111
+C 255,0,111
 
-    1111111
-   111111111
- 111111111001
-1000000000S101
- 111111110101
-  1111111111
+
+    111
+   1S10111111
+  100011110011
+ 10100000110111
+1011111101011
+ 1111111111

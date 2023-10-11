@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:42:17 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:43:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 18:25:04 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ int	main(int ac, char **av)
 	info_init(&info, av[1]);
 	init_map(&info, &game);
 	init_game_mlx(&game);
-	printf("texture[NORTH] = %s\n", game.texture[NORTH]);
-	printf("texture[SOUTH] = %s\n", game.texture[SOUTH]);
-	printf("texture[WEST] = %s\n", game.texture[WEST]);
-	printf("texture[EAST] = %s\n", game.texture[EAST]);
 	mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
 	hook_key_events(&game);
 	mlx_loop_hook(game.mlx, &run_game, &game);

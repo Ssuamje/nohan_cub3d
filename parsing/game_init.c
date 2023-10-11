@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 15:00:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 18:21:07 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	copy_map_loop(t_info *info, t_game *game, t_map *tmp, int i)
 			game->map[i][j] = MAP_EAST;
 		else if (tmp->line[j] == 'W')
 			game->map[i][j] = MAP_WEST;
-		if (is_nsew(tmp->line[j]))
+		if (j < tmp_len && is_nsew(tmp->line[j]))
 		{
 			game->pos.x = i;
 			game->pos.y = j;
@@ -96,3 +96,10 @@ void	init_map(t_info *info, t_game *game)
 	game->floor = rgb_to_hex(info->f_rgb[0], info->f_rgb[1], info->f_rgb[2]);
 	printf("%06X and %06X\n", game->ceiling, game->floor);
 }
+	// free(game->texture[NORTH]);
+	// free(game->texture[SOUTH]);
+	// free(game->texture[EAST]);
+	// free(game->texture[WEST]);
+	// for (int i = 0; i < game->map_col; i++)
+	// 	free(game->map[i]);
+	// free(game->map);
