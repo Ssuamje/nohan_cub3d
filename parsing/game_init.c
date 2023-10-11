@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_init.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/06/21 13:45:28 by hyungnoh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-int	rgb_to_hex(int red, int green, int blue) {
-    return (red << 16) | (green << 8) | blue;
+int	rgb_to_hex(int red, int green, int blue)
+{
+	return ((red << 16) | (green << 8) | blue);
 }
 
 void	free_info_map(t_info *info)
@@ -28,7 +41,7 @@ void	copy_map(t_info	*info, t_game *game)
 	t_map	*tmp;
 
 	tmp = info->map;
-	game->map = malloc(sizeof(int*) * info->map_height);
+	game->map = malloc(sizeof(int *) * info->map_height);
 	i = -1;
 	while (++i < info->map_height)
 	{
@@ -49,7 +62,8 @@ void	copy_map(t_info	*info, t_game *game)
 				game->map[i][j] = MAP_EAST;
 			else if (tmp->line[j] == 'W')
 				game->map[i][j] = MAP_WEST;
-			if (tmp->line[j] == 'N' || tmp->line[j] == 'S' || tmp->line[j] == 'E' || tmp->line[j] == 'W')
+			if (tmp->line[j] == 'N' || tmp->line[j] == 'S'
+				|| tmp->line[j] == 'E' || tmp->line[j] == 'W')
 			{
 				game->pos.x = i;
 				game->pos.y = j;
