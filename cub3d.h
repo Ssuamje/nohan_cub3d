@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 17:52:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 19:27:13 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define VERTICAL 1
 # define NO_MORE_TO_READ NULL
 
-# define MOVE_SPEED 0.025
-# define ROTATE_SPEED 0.02
+# define MOVE_SPEED 0.035
+# define ROTATE_SPEED 0.035
 
 # ifndef SCREEN_WIDTH
 #  define SCREEN_WIDTH 640
@@ -261,7 +261,6 @@ void			set_ray_direction(t_game *game);
 void			set_player_direction(t_game *game, int direction);
 void			set_map_position(t_game *game);
 void			set_delta_distance(t_game *game);
-void			set_step(t_game *game);
 void			set_side_distance(t_game *game);
 void			dda(t_game *game);
 

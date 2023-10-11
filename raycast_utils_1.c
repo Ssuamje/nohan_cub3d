@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 13:13:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 13:52:52 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 19:17:53 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,6 @@ void	set_delta_distance(t_game *game)
 {
 	game->delta_dist.x = fabs(1 / game->ray_dir.x);
 	game->delta_dist.y = fabs(1 / game->ray_dir.y);
-}
-
-void	set_step(t_game *game)
-{
-	if (game->ray_dir.x < 0)
-		game->step.x = -1;
-	else
-		game->step.x = 1;
-	if (game->ray_dir.y < 0)
-		game->step.y = -1;
-	else
-		game->step.y = 1;
 }
 
 void	set_side_distance(t_game *game)
