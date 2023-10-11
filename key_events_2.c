@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:00:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:03:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:57:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	move_head_to_right(t_game *game)
 		game->plane.y = old_plane_x * sin(-ROTATE_SPEED) + \
 		game->plane.y * cos(-ROTATE_SPEED);
 	}
-
 }
 
 void	move_head_to_left(t_game *game)
@@ -96,7 +95,6 @@ void	move_head_to_left(t_game *game)
 		game->plane.y * cos(ROTATE_SPEED);
 	}
 }
-
 
 int	read_keys_and_move(t_game *game)
 {

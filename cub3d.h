@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:56:02 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:59:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,31 +154,31 @@ typedef struct s_game
 	int				**map;
 	int				map_row;
 	int				map_col;
-	int				ceiling; // 천장 색깔
-	int				floor; // 바닥 색깔
-	int				keys[7]; // 키보드 입력에 따른 키 배열
-	t_vec			pos; // position, 현재 플레이어의 위치 - 소수점 포함
-	t_vec			coord; // coordination, 현재 플레이어가 위치한 칸의 좌표 - 소수점 미포함
-	t_vec			dir; // direction, 방향 벡터
-	t_vec			old_dir; // old_direction, 방향 벡터
-	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
-	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
-	double			camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
-	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
-	t_vec			delta_dist; // delta-distance, side-dist에서 다음 x 또는 y 방향의 칸 사이의 거리
-	double			perp_wall_dist; // perpendicular-wall-distance, ray가 맞는 지점까지의 수직거리
-	t_vec			step; // step, ray가 한 칸씩 이동할 때의 x 또는 y 방향의 증가량
-	int				color; // pixel의 color
-	int				side; // ray가 맞은 면의 방향
-	int				line_height; // line-height, 세로선의 높이
-	int				draw_start; // draw-start, 세로선의 시작점
-	int				draw_end; // draw-end, 세로선의 끝점
-	int				wall_texture_x; // wall_texture_x, 벽 텍스처의 x 좌표
-	int				wall_texture_y; // wall_texture_y, 벽 텍스처의 y 좌표
-	double			wall_x; // wall_x, 벽의 x 좌표
-	double			step_texture; // step_texture, 벽 텍스처의 y 좌표가 얼마나 증가하는지
-	double			texture_pos; // texture_pos, 벽 텍스처의 y 좌표
-	int				draw_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]; // draw_buffer, 픽셀의 색깔을 저장하는 버퍼
+	int				ceiling;
+	int				floor;
+	int				keys[7];
+	t_vec			pos;
+	t_vec			coord;
+	t_vec			dir;
+	t_vec			old_dir;
+	t_vec			ray_dir;
+	t_vec			plane;
+	double			camera_x;
+	t_vec			side_dist;
+	t_vec			delta_dist;
+	double			perp_wall_dist;
+	t_vec			step;
+	int				color;
+	int				side;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	int				wall_texture_x;
+	int				wall_texture_y;
+	double			wall_x;
+	double			step_texture;
+	double			texture_pos;
+	int				draw_buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 }	t_game;
 
 /* ./cub3d_utils.c */

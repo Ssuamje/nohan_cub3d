@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:04:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:54:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:57:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ unsigned int	get_color(t_game *game, int direction)
 	tex = game->texture_imgs[direction];
 	color = *(unsigned int *) \
 	(tex.data + (y * tex.line_length + x * (tex.bits_per_pixel / 8)));
-	// if (game->side == 1)
-	// color = (color >> 1) & 8355711;
 	return (color);
 }
+// if (game->side == 1)
+// color = (color >> 1) & 8355711;
 
 void	calculate_texture(t_game *game)
 {
