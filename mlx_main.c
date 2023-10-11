@@ -1,35 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_main.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 13:42:17 by sanan             #+#    #+#             */
+/*   Updated: 2023/10/11 13:47:46 by sanan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	init_game_mlx(t_game *game);
-void	hook_key_events(t_game *game);
-void	hook_key_events(t_game *game);
-int		key_press(int key_code, t_game *game);
-int		key_release(int key_code, t_game *game);
-int		print_key_press(t_game *game);
-int		run_game(t_game *game);
-void	init_game_ray_condition(t_game *game);
-void	init_game_textures(t_game *game);
-void	print_int_map(t_game *game);
-void	my_mlx_pixel_put(t_game *game, int x, int y, int color);
-void    draw_vertical(t_game *game, int x);
-void	raycast(t_game *game);
-int		read_keys_and_move(t_game *game);
-void	set_draw_range(t_game *game);
-void	calculate_texture(t_game *game);
-void	set_draw_buffer(t_game *game, int x);
-void	put_buffer_to_image(t_game *game);
+void			init_game_mlx(t_game *game);
+void			hook_key_events(t_game *game);
+void			hook_key_events(t_game *game);
+int				key_press(int key_code, t_game *game);
+int				key_release(int key_code, t_game *game);
+int				print_key_press(t_game *game);
+int				run_game(t_game *game);
+void			init_game_ray_condition(t_game *game);
+void			init_game_textures(t_game *game);
+void			print_int_map(t_game *game);
+void			my_mlx_pixel_put(t_game *game, int x, int y, int color);
+void			draw_vertical(t_game *game, int x);
+void			raycast(t_game *game);
+int				read_keys_and_move(t_game *game);
+void			set_draw_range(t_game *game);
+void			calculate_texture(t_game *game);
+void			set_draw_buffer(t_game *game, int x);
+void			put_buffer_to_image(t_game *game);
 unsigned int	get_color(t_game *game, int direction);
 
-void leaks()
+void	leaks(void)
 {
 	system("leaks cub3D");
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_info	info;
 	t_game	game;
-	
+
 	atexit(leaks);
 	if (ac != 2 || is_extension_valid(av[1]))
 		exit_error(ERR_ARG);
@@ -54,7 +66,7 @@ void	hook_key_events(t_game *game)
 	mlx_hook(game->win, RELEASE, MASK_RELEASE, &key_release, game);
 }
 
-int		key_press(int key_code, t_game *game)
+int	key_press(int key_code, t_game *game)
 {
 	if (key_code == KEY_W)
 		game->keys[W] = 1;
@@ -73,7 +85,7 @@ int		key_press(int key_code, t_game *game)
 	return (1);
 }
 
-int		key_release(int key_code, t_game *game)
+int	key_release(int key_code, t_game *game)
 {
 	if (key_code == KEY_W)
 		game->keys[W] = 0;
@@ -90,7 +102,7 @@ int		key_release(int key_code, t_game *game)
 	return (1);
 }
 
-int		run_game(t_game *game)
+int	run_game(t_game *game)
 {
 	raycast(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
@@ -100,7 +112,7 @@ int		run_game(t_game *game)
 
 void	raycast(t_game *game)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (x < SCREEN_WIDTH)
@@ -121,8 +133,8 @@ void	raycast(t_game *game)
 
 void	put_buffer_to_image(t_game *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	while (x < SCREEN_WIDTH)
@@ -139,7 +151,7 @@ void	put_buffer_to_image(t_game *game)
 
 void	set_draw_buffer(t_game *game, int x)
 {
-	int y;
+	int	y;
 
 	y = 0;
 	while (y < game->draw_start)
@@ -171,17 +183,18 @@ void	set_draw_buffer(t_game *game, int x)
 
 unsigned int	get_color(t_game *game, int direction)
 {
-	int x;
-	int y;
-	unsigned int color;
-	t_img	tex;
+	int				x;
+	int				y;
+	unsigned int	color;
+	t_img			tex;
 
 	x = game->wall_texture_x;
 	y = game->wall_texture_y;
 	tex = game->texture_imgs[direction];
-	color = *(unsigned int *)(tex.data + (y * tex.line_length + x * (tex.bits_per_pixel / 8)));
+	color = *(unsigned int *) \
+	(tex.data + (y * tex.line_length + x * (tex.bits_per_pixel / 8)));
 	// if (game->side == 1)
-		// color = (color >> 1) & 8355711;
+	// color = (color >> 1) & 8355711;
 	return (color);
 }
 
@@ -198,7 +211,8 @@ void	calculate_texture(t_game *game)
 	if (game->side == 1 && game->ray_dir.y < 0)
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
 	game->step_texture = 1.0 * TEXTURE_HEIGHT / game->line_height;
-	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + game->line_height / 2) * game->step_texture;
+	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 \
+	+ game->line_height / 2) * game->step_texture;
 }
 
 void	set_draw_range(t_game *game)
@@ -216,58 +230,74 @@ int	read_keys_and_move(t_game *game)
 {
 	if (game->keys[W])
 	{
-		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
+		if (game->map[(int)(game->pos.x + game->dir.x * MOVE_SPEED)] \
+		[(int)game->pos.y] == 0)
 			game->pos.x += game->dir.x * MOVE_SPEED;
-		if (game->map[(int)game->pos.x][(int)(game->pos.y + game->dir.y * MOVE_SPEED)] == 0)
+		if (game->map[(int)game->pos.x] \
+		[(int)(game->pos.y + game->dir.y * MOVE_SPEED)] == 0)
 			game->pos.y += game->dir.y * MOVE_SPEED;
 	}
 	if (game->keys[S])
 	{
-		if (game->map[(int)(game->pos.x - game->dir.x * MOVE_SPEED)][(int)game->pos.y] == 0)
+		if (game->map[(int)(game->pos.x - game->dir.x * MOVE_SPEED)] \
+		[(int)game->pos.y] == 0)
 			game->pos.x -= game->dir.x * MOVE_SPEED;
-		if (game->map[(int)game->pos.x][(int)(game->pos.y - game->dir.y * MOVE_SPEED)] == 0)
+		if (game->map[(int)game->pos.x] \
+		[(int)(game->pos.y - game->dir.y * MOVE_SPEED)] == 0)
 			game->pos.y -= game->dir.y * MOVE_SPEED;
 	}
 	if (game->keys[D])
 	{
-		if (game->map[(int)(game->pos.x + game->dir.y * MOVE_SPEED)][(int)game->pos.y] == 0)
+		if (game->map[(int)(game->pos.x + game->dir.y * MOVE_SPEED)] \
+		[(int)game->pos.y] == 0)
 			game->pos.x += game->dir.y * MOVE_SPEED;
-		if (game->map[(int)game->pos.x][(int)(game->pos.y - game->dir.x * MOVE_SPEED)] == 0)
+		if (game->map[(int)game->pos.x] \
+		[(int)(game->pos.y - game->dir.x * MOVE_SPEED)] == 0)
 			game->pos.y -= game->dir.x * MOVE_SPEED;
 	}
 	if (game->keys[A])
 	{
-		if (game->map[(int)(game->pos.x - game->dir.y * MOVE_SPEED)][(int)game->pos.y] == 0)
+		if (game->map[(int)(game->pos.x - game->dir.y * MOVE_SPEED)] \
+		[(int)game->pos.y] == 0)
 			game->pos.x -= game->dir.y * MOVE_SPEED;
-		if (game->map[(int)game->pos.x][(int)(game->pos.y + game->dir.x * MOVE_SPEED)] == 0)
+		if (game->map[(int)game->pos.x] \
+		[(int)(game->pos.y + game->dir.x * MOVE_SPEED)] == 0)
 			game->pos.y += game->dir.x * MOVE_SPEED;
 	}
 	if (game->keys[RIGHT])
 	{
-		double old_dir_x;
-		double old_plane_x;
+		double	old_dir_x;
+		double	old_plane_x;
 		old_dir_x = game->dir.x;
-		game->dir.x = game->dir.x * cos(-ROTATE_SPEED) - game->dir.y * sin(-ROTATE_SPEED);
-		game->dir.y = old_dir_x * sin(-ROTATE_SPEED) + game->dir.y * cos(-ROTATE_SPEED);
+		game->dir.x = game->dir.x * cos(-ROTATE_SPEED) - \
+		game->dir.y * sin(-ROTATE_SPEED);
+		game->dir.y = old_dir_x * sin(-ROTATE_SPEED) + \
+		game->dir.y * cos(-ROTATE_SPEED);
 		old_plane_x = game->plane.x;
-		game->plane.x = game->plane.x * cos(-ROTATE_SPEED) - game->plane.y * sin(-ROTATE_SPEED);
-		game->plane.y = old_plane_x * sin(-ROTATE_SPEED) + game->plane.y * cos(-ROTATE_SPEED);
+		game->plane.x = game->plane.x * cos(-ROTATE_SPEED) - \
+		game->plane.y * sin(-ROTATE_SPEED);
+		game->plane.y = old_plane_x * sin(-ROTATE_SPEED) + \
+		game->plane.y * cos(-ROTATE_SPEED);
 	}
 	if (game->keys[LEFT])
 	{
-		double old_dir_x;
-		double old_plane_x;
+		double	old_dir_x;
+		double	old_plane_x;
 		old_dir_x = game->dir.x;
-		game->dir.x = game->dir.x * cos(ROTATE_SPEED) - game->dir.y * sin(ROTATE_SPEED);
-		game->dir.y = old_dir_x * sin(ROTATE_SPEED) + game->dir.y * cos(ROTATE_SPEED);
+		game->dir.x = game->dir.x * cos(ROTATE_SPEED) - \
+		game->dir.y * sin(ROTATE_SPEED);
+		game->dir.y = old_dir_x * sin(ROTATE_SPEED) + \
+		game->dir.y * cos(ROTATE_SPEED);
 		old_plane_x = game->plane.x;
-		game->plane.x = game->plane.x * cos(ROTATE_SPEED) - game->plane.y * sin(ROTATE_SPEED);
-		game->plane.y = old_plane_x * sin(ROTATE_SPEED) + game->plane.y * cos(ROTATE_SPEED);
+		game->plane.x = game->plane.x * cos(ROTATE_SPEED) - \
+		game->plane.y * sin(ROTATE_SPEED);
+		game->plane.y = old_plane_x * sin(ROTATE_SPEED) + \
+		game->plane.y * cos(ROTATE_SPEED);
 	}
 	return (1);
 }
 
-int		print_key_press(t_game *game)
+int	print_key_press(t_game *game)
 {
 	if (game->keys[W])
 		printf("W\n");
@@ -281,14 +311,14 @@ int		print_key_press(t_game *game)
 		printf("LEFT\n");
 	else if (game->keys[RIGHT])
 		printf("RIGHT\n");
-	
+
 	return (1);
 }
 
 void	print_int_map(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < game->map_row)
@@ -300,30 +330,33 @@ void	print_int_map(t_game *game)
 	}
 }
 
-void my_mlx_pixel_put(t_game *game, int x, int y, int color)
+void	my_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
-    char *dst;
+	char	*dst;
 
-    dst = game->img_data + (y * game->img_line_size + x * (game->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
+	dst = game->img_data + (y * game->img_line_size + \
+	x * (game->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
-void    draw_vertical(t_game *game, int x)
+void	draw_vertical(t_game *game, int x)
 {
-    int y = 0;
-    while (y < game->draw_start)
-    {
-        my_mlx_pixel_put(game, x, y, game->ceiling);
-        y++;
-    }
-    while (y < game->draw_end)
-    {
-        my_mlx_pixel_put(game, x, y, game->color);
-        y++;
-    }
-    while (y < SCREEN_HEIGHT)
-    {
-        my_mlx_pixel_put(game, x, y, game->floor);
-        y++;
-    }
+	int	y;
+
+	y = 0;
+	while (y < game->draw_start)
+	{
+		my_mlx_pixel_put(game, x, y, game->ceiling);
+		y++;
+	}
+	while (y < game->draw_end)
+	{
+		my_mlx_pixel_put(game, x, y, game->color);
+		y++;
+	}
+	while (y < SCREEN_HEIGHT)
+	{
+		my_mlx_pixel_put(game, x, y, game->floor);
+		y++;
+	}
 }

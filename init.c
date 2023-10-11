@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:32:07 by sanan             #+#    #+#             */
-/*   Updated: 2023/06/25 22:07:47 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 13:35:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	init_game_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
+	game->win = mlx_new_window(game->mlx, \
+	SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
 	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	game->img_data = mlx_get_data_addr(game->img, &game->bits_per_pixel, &game->img_line_size, &game->endian);
+	game->img_data = mlx_get_data_addr(game->img, &game->bits_per_pixel, \
+	&game->img_line_size, &game->endian);
 	init_game_ray_condition(game);
 	init_game_textures(game);
 }
@@ -32,14 +34,14 @@ void	init_game_textures(t_game *game)
 
 void	set_img_file_and_data(t_game *game, int direction)
 {
-	int dummy;
-	t_img *tex;
+	int		dummy;
+	t_img	*tex;
 
 	tex = &game->texture_imgs[direction];
-	tex->img = mlx_xpm_file_to_image(game->mlx,\
+	tex->img = mlx_xpm_file_to_image(game->mlx, \
 		game->texture[direction], &dummy, &dummy);
-	tex->data = mlx_get_data_addr(tex->img, &tex->bits_per_pixel,\
-		 &tex->line_length, &tex->endian);
+	tex->data = mlx_get_data_addr(tex->img, &tex->bits_per_pixel, \
+		&tex->line_length, &tex->endian);
 }
 
 void	init_game_ray_condition(t_game *game)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
+/*   Updated: 2023/10/11 13:50:26 by sanan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -18,21 +30,21 @@
 # define MOVE_SPEED 0.025
 # define ROTATE_SPEED 0.02
 
-#ifndef SCREEN_WIDTH
-# define SCREEN_WIDTH 640
-#endif
-#ifndef SCREEN_HEIGHT
-# define SCREEN_HEIGHT 480
-#endif
-#ifndef GAME_NAME
-# define GAME_NAME "cub3D"
-#endif
-#ifndef TEXTURE_WIDTH
-# define TEXTURE_WIDTH 242
-#endif
-#ifndef TEXTURE_HEIGHT
-# define TEXTURE_HEIGHT 242
-#endif
+# ifndef SCREEN_WIDTH
+#  define SCREEN_WIDTH 640
+# endif
+# ifndef SCREEN_HEIGHT
+#  define SCREEN_HEIGHT 480
+# endif
+# ifndef GAME_NAME
+#  define GAME_NAME "cub3D"
+# endif
+# ifndef TEXTURE_WIDTH
+#  define TEXTURE_WIDTH 242
+# endif
+# ifndef TEXTURE_HEIGHT
+#  define TEXTURE_HEIGHT 242
+# endif
 
 enum	e_errno{
 	ERR_ELEM_INVALID,
@@ -101,23 +113,23 @@ enum e_key_masks
 
 typedef struct s_info
 {
-	int				fd; // 얘도 없어도 됨
-	char			*north_path; // path to textures
+	int				fd;
+	char			*north_path;
 	char			*south_path;
 	char			*west_path;
 	char			*east_path;
-	int				f_rgb[3]; // color 하나로 표현하기
+	int				f_rgb[3];
 	int				c_rgb[3];
-	struct s_map	*map; // 없애기
+	struct s_map	*map;
 	int				map_width;
 	int				map_height;
 }	t_info;
 
 typedef struct s_vector
 {
-    double x;
-    double y;
-} t_vec;
+	double	x;
+	double	y;
+}	t_vec;
 
 typedef struct s_img
 {
@@ -150,7 +162,7 @@ typedef struct s_game
 	t_vec			dir; // direction, 방향 벡터
 	t_vec			old_dir; // old_direction, 방향 벡터
 	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
-	
+
 	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
 	double			camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
 	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
@@ -234,14 +246,14 @@ char	*get_next_line(int fd);
 char	*get_msg_by_errno(int errno);
 void	exit_error(int errno);
 
-void    set_ray_direction(t_game *game);
+void	set_ray_direction(t_game *game);
 void	set_player_direction(t_game *game, int direction);
-void    set_map_position(t_game *game);
-void    set_delta_distance(t_game *game);
-void    set_step(t_game *game);
-void    set_side_distance(t_game *game);
-void    dda(t_game *game);
-int     ternary(int condition, int if_true, int if_false);
+void	set_map_position(t_game *game);
+void	set_delta_distance(t_game *game);
+void	set_step(t_game *game);
+void	set_side_distance(t_game *game);
+void	dda(t_game *game);
+int		ternary(int condition, int if_true, int if_false);
 
 void	init_game_mlx(t_game *game);
 void	init_game_textures(t_game *game);
