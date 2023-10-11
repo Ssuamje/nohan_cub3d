@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 18:47:58 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 16:10:17 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:59:51 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_closed(t_map *map, int i, int j, int last)
 		len = ft_strlen(tmp->line) - 1;
 		while (++i < len && j != 0 && j != last)
 		{
-			check_cases(tmp, tmp->line[i]);
+			check_cases(tmp, tmp->line[i], i);
 			if (tmp->next)
 			{
 				if (tmp->line[i] != '1' && tmp->line[i] != ' '

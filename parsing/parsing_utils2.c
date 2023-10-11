@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:51:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 16:09:08 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:01:03 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	check_path_valid(char *str)
 		close(fd);
 }
 
-void	check_cases(t_map *tmp, char c)
+void	check_cases(t_map *tmp, char c, int i)
 {
-	if (tmp->prev && ft_strlen(tmp->prev->line) < ft_strlen(tmp->line)
-		&& c == '0')
+	if (tmp->prev && (int)ft_strlen(tmp->prev->line) < i + 1
+		&& c != '1')
 		exit_error(ERR_WALL_INVALID);
-	if (tmp->next && ft_strlen(tmp->next->line) < ft_strlen(tmp->line)
-		&& c == '0')
+	if (tmp->next && (int)ft_strlen(tmp->next->line) < i + 1
+		&& c != '1')
 		exit_error(ERR_WALL_INVALID);
 }
