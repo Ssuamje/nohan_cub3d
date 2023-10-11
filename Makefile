@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/10/11 14:49:05 by sanan            ###   ########.fr        #
+#    Updated: 2023/10/11 14:50:48 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ clean :
 
 fclean : clean
 	@rm -rf $(NAME)
+	@rm -rf libmlx.dylib
 	@echo $(RED) "	   🐶 cleaned archive, target files!" $(RESET)
 
 re :
