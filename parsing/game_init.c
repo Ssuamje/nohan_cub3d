@@ -6,16 +6,11 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/06/21 13:45:28 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:38:43 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	rgb_to_hex(int red, int green, int blue)
-{
-	return ((red << 16) | (green << 8) | blue);
-}
 
 void	free_info_map(t_info *info)
 {
@@ -33,11 +28,44 @@ void	free_info_map(t_info *info)
 	free(info->map);
 }
 
+int	is_nsew(char c)
+{
+	return (c == 'N' || c == 'S'
+		|| c == 'E' || c == 'W');
+}
+
+void	copy_map_loop(t_info *info, t_game *game, t_map *tmp, int i)
+{
+	int	j;
+	int	tmp_len;
+
+	j = -1;
+	while (++j < info->map_width)
+	{
+		tmp_len = ft_strlen(tmp->line);
+		if (j >= tmp_len || tmp->line[j] == '0' || tmp->line[j] == ' ')
+			game->map[i][j] = 0;
+		else if (tmp->line[j] == '1')
+			game->map[i][j] = 1;
+		else if (tmp->line[j] == 'N')
+			game->map[i][j] = MAP_NORTH;
+		else if (tmp->line[j] == 'S')
+			game->map[i][j] = MAP_SOUTH;
+		else if (tmp->line[j] == 'E')
+			game->map[i][j] = MAP_EAST;
+		else if (tmp->line[j] == 'W')
+			game->map[i][j] = MAP_WEST;
+		if (is_nsew(tmp->line[j]))
+		{
+			game->pos.x = i;
+			game->pos.y = j;
+		}
+	}
+}
+
 void	copy_map(t_info	*info, t_game *game)
 {
 	int		i;
-	int		j;
-	int		tmp_len;
 	t_map	*tmp;
 
 	tmp = info->map;
@@ -45,30 +73,8 @@ void	copy_map(t_info	*info, t_game *game)
 	i = -1;
 	while (++i < info->map_height)
 	{
-		j = -1;
 		game->map[i] = malloc(sizeof(int) * info->map_width);
-		tmp_len = ft_strlen(tmp->line);
-		while (++j < info->map_width)
-		{
-			if (j >= tmp_len || tmp->line[j] == '0' || tmp->line[j] == ' ')
-				game->map[i][j] = 0;
-			else if (tmp->line[j] == '1')
-				game->map[i][j] = 1;
-			else if (tmp->line[j] == 'N')
-				game->map[i][j] = MAP_NORTH;
-			else if (tmp->line[j] == 'S')
-				game->map[i][j] = MAP_SOUTH;
-			else if (tmp->line[j] == 'E')
-				game->map[i][j] = MAP_EAST;
-			else if (tmp->line[j] == 'W')
-				game->map[i][j] = MAP_WEST;
-			if (tmp->line[j] == 'N' || tmp->line[j] == 'S'
-				|| tmp->line[j] == 'E' || tmp->line[j] == 'W')
-			{
-				game->pos.x = i;
-				game->pos.y = j;
-			}
-		}
+		copy_map_loop(info, game, tmp, i);
 		tmp = tmp->next;
 	}
 	free_info_map(info);
@@ -92,8 +98,8 @@ void	init_map(t_info *info, t_game *game)
 {
 	copy_map(info, game);
 	copy_texture(info, game);
-	game->ceiling = rgb_to_hex(info->c_rgb[0],info->c_rgb[1],info->c_rgb[2]);
-	game->floor = rgb_to_hex(info->f_rgb[0],info->f_rgb[1],info->f_rgb[2]);
+	game->ceiling = rgb_to_hex(info->c_rgb[0], info->c_rgb[1], info->c_rgb[2]);
+	game->floor = rgb_to_hex(info->f_rgb[0], info->f_rgb[1], info->f_rgb[2]);
 	printf("%06X and %06X\n", game->ceiling, game->floor);
 }
 	// free(game->texture[NORTH]);

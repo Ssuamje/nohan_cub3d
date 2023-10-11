@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/06/21 13:45:28 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:02:32 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_path(t_info *info, char *line, int elements_cnt[])
 	if (!ft_strncmp("NO ", line, 3))
 	{
 		info->north_path = ft_linedup(line + 3);
-		elements_cnt[0]	+= FILLED;
+		elements_cnt[0] += FILLED;
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
@@ -67,7 +67,7 @@ void	check_f_rgb(t_info *info, char *line, int elements_cnt[])
 		while (++i < 3)
 			free(tmp_rgb[i]);
 		free(tmp_rgb);
-		elements_cnt[4]	+= FILLED;
+		elements_cnt[4] += FILLED;
 	}
 }
 
@@ -93,7 +93,7 @@ void	check_c_rgb(t_info *info, char *line, int elements_cnt[])
 		while (++i < 3)
 			free(tmp_rgb[i]);
 		free(tmp_rgb);
-		elements_cnt[5]	+= FILLED;
+		elements_cnt[5] += FILLED;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 13:50:26 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:41:33 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,13 @@ int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 int		ft_atoi(const char *str);
 int		ft_strcmp(char *s1, char *s2);
 
+/* ./cub3d_utils2.c */
+int		rgb_to_hex(int red, int green, int blue);
+
+/* ./parsing/check_island_utils.c */
+void	check_island1(char **board, t_map *tmp, int *x, int *y);
+void	check_island2(char **board, int last);
+
 /* ./parsing/elements_init.c */
 
 void	elements_cnt_init(int elements_cnt[]);
@@ -209,12 +216,12 @@ void	elements_init(t_info *info);
 void	check_side(t_map *map, int i, int j, int last);
 void	check_closed(t_map *map, int i, int j, int last);
 void	recursion(char **board, int x, int y, int last);
-void	check_island(t_map *map, int i, int j, int last);
+void	check_island(t_map *map, int i, int last);
 void	check_wall(t_map *map);
 
 /* ./parsing/info_init.c */
 
-void	check_char(t_map *map);
+void	check_char(t_map *map, int player_cnt);
 void	info_init(t_info *info, char *filename);
 
 /* ./parsing/map_init.c */
@@ -259,5 +266,13 @@ void	init_game_mlx(t_game *game);
 void	init_game_textures(t_game *game);
 void	init_game_ray_condition(t_game *game);
 void	set_img_file_and_data(t_game *game, int direction);
+
+int		key_press(int key_code, t_game *game);
+int		key_release(int key_code, t_game *game);
+
+
+
+void			put_pixel(t_game *game, int x, int y, int color);
+unsigned int	get_color(t_game *game, int direction);
 
 #endif

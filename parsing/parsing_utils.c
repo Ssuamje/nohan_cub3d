@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:25:42 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/06/23 13:08:28 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:40:25 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	check_comma(char *str)
 	{
 		if (str[i] == ',')
 			comma++;
-		else if (str[i] == '\n');
+		else if (str[i] == '\n')
+			;
 		else if (!(str[i] >= '0' && str[i] <= '9'))
 			exit_error(ERR_ELEM_INVALID);
 	}

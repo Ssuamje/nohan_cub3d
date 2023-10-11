@@ -6,20 +6,18 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:28:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/06/23 15:31:43 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:48:23 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	check_char(t_map *map)
+void	check_char(t_map *map, int player_cnt)
 {
 	t_map	*tmp;
 	int		i;
-	int		player_cnt;
 
 	tmp = map;
-	player_cnt = 0;
 	while (tmp)
 	{
 		i = -1;
@@ -49,7 +47,7 @@ void	info_init(t_info *info, char *filename)
 		exit_error(ERR_MAP_FILE);
 	elements_init(info);
 	map_init(info);
-	check_char(info->map);
+	check_char(info->map, 0);
 	check_wall(info->map);
 	close(info->fd);
 }

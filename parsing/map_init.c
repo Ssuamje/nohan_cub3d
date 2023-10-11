@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:05:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/06/21 16:19:00 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:56:06 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,11 @@ void	map_start(t_info *info)
 	exit_error(ERR_MAP_INVALID);
 }
 
-void	map_init(t_info *info)
+void	map_loop(t_map *cur, t_map *next, t_info *info)
 {
 	char	*line;
-	t_map	*cur;
-	t_map	*next;
 	int		width;
 
-	map_start(info);
-	info->map_width = ft_strlen(info->map->line);
-	info->map_height = 1;
-	cur = info->map;
-	next = info->map->next;
 	while (READ_MAP)
 	{
 		line = get_next_line(info->fd);
@@ -103,5 +96,18 @@ void	map_init(t_info *info)
 		next = next->next;
 		free(line);
 	}
+}
+
+void	map_init(t_info *info)
+{
+	t_map	*cur;
+	t_map	*next;
+
+	map_start(info);
+	info->map_width = ft_strlen(info->map->line);
+	info->map_height = 1;
+	cur = info->map;
+	next = info->map->next;
+	map_loop(cur, next, info);
 	check_empty_line(info->map);
 }
