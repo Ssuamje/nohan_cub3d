@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:41:33 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:47:57 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,6 @@ void	set_delta_distance(t_game *game);
 void	set_step(t_game *game);
 void	set_side_distance(t_game *game);
 void	dda(t_game *game);
-int		ternary(int condition, int if_true, int if_false);
 
 void	init_game_mlx(t_game *game);
 void	init_game_textures(t_game *game);
@@ -273,6 +272,18 @@ int		key_release(int key_code, t_game *game);
 
 
 void			put_pixel(t_game *game, int x, int y, int color);
+unsigned int	get_color(t_game *game, int direction);
+void			hook_key_events(t_game *game);
+int				run_game(t_game *game);
+void			put_pixel(t_game *game, int x, int y, int color);
+void			draw_vertical(t_game *game, int x);
+void			raycast(t_game *game);
+
+int				read_keys_and_move(t_game *game);
+void			set_draw_range(t_game *game);
+void			calculate_texture(t_game *game);
+void			set_draw_buffer(t_game *game, int x);
+void			put_buffer_to_image(t_game *game);
 unsigned int	get_color(t_game *game, int direction);
 
 #endif

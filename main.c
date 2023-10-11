@@ -6,29 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:42:17 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:05:29 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:43:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void			init_game_mlx(t_game *game);
-void			hook_key_events(t_game *game);
-void			hook_key_events(t_game *game);
-int				key_press(int key_code, t_game *game);
-int				key_release(int key_code, t_game *game);
-int				run_game(t_game *game);
-void			init_game_ray_condition(t_game *game);
-void			init_game_textures(t_game *game);
-void			put_pixel(t_game *game, int x, int y, int color);
-void			draw_vertical(t_game *game, int x);
-void			raycast(t_game *game);
-int				read_keys_and_move(t_game *game);
-void			set_draw_range(t_game *game);
-void			calculate_texture(t_game *game);
-void			set_draw_buffer(t_game *game, int x);
-void			put_buffer_to_image(t_game *game);
-unsigned int	get_color(t_game *game, int direction);
 
 int	main(int ac, char **av)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/10/11 14:41:45 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/10/11 14:49:05 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,12 @@ SRC_ERROR =$(addprefix $(DIR_ERROR),\
 exit_error.c)
 
 SRC_MAIN =\
-main.c\
-draw.c\
 dda.c\
 draw_2.c\
-init.c\
+draw.c\
 key_events.c\
 key_events_2.c\
+main.c\
 raycast_utils_1.c\
 init.c
 
