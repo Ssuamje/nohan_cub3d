@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 14:38:43 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:55:35 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void	free_info_map(t_info *info)
 		tmp = tmp->prev;
 	}
 	free(info->map);
-}
-
-int	is_nsew(char c)
-{
-	return (c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W');
 }
 
 void	copy_map_loop(t_info *info, t_game *game, t_map *tmp, int i)
