@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:04:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:06:29 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:54:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	set_draw_buffer(t_game *game, int x)
 		y++;
 	}
 }
-
 
 unsigned int	get_color(t_game *game, int direction)
 {

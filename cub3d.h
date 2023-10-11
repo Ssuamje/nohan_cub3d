@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 14:47:57 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/11 14:53:47 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ typedef struct s_game
 	t_vec			dir; // direction, 방향 벡터
 	t_vec			old_dir; // old_direction, 방향 벡터
 	t_vec			ray_dir; // ray-direction, ray의 방향 벡터
-
 	t_vec			plane; // plane, 방향 벡터에 직교하는 벡터
 	double			camera_x; // camera_x, 현재 카메라의 x 좌표 (-1 ~ 1)
 	t_vec			side_dist; // side-distance, 현재 플레이어가 위치한 칸과 다음 x 또는 y 방향의 칸 사이의 거리
@@ -180,96 +179,94 @@ typedef struct s_game
 	double			step_texture; // step_texture, 벽 텍스처의 y 좌표가 얼마나 증가하는지
 	double			texture_pos; // texture_pos, 벽 텍스처의 y 좌표
 	int				draw_buffer[SCREEN_HEIGHT][SCREEN_WIDTH]; // draw_buffer, 픽셀의 색깔을 저장하는 버퍼
-} t_game;
+}	t_game;
 
 /* ./cub3d_utils.c */
 
-int		is_extension_valid(char *filename);
-int		elements_filled(int elements_cnt[]);
-void	check_comma(char *str);
-void	check_file_order(char *line);
-int		get_last(t_map *map);
+int				is_extension_valid(char *filename);
+int				elements_filled(int elements_cnt[]);
+void			check_comma(char *str);
+void			check_file_order(char *line);
+int				get_last(t_map *map);
 
-char	*ft_linedup(char *s1);
-char	**ft_split(char const *s, char c);
-int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
-int		ft_atoi(const char *str);
-int		ft_strcmp(char *s1, char *s2);
+char			*ft_linedup(char *s1);
+char			**ft_split(char const *s, char c);
+int				ft_strncmp(const char *s1, const char *s2, unsigned int n);
+int				ft_atoi(const char *str);
+int				ft_strcmp(char *s1, char *s2);
 
 /* ./cub3d_utils2.c */
-int		rgb_to_hex(int red, int green, int blue);
+int				rgb_to_hex(int red, int green, int blue);
 
 /* ./parsing/check_island_utils.c */
-void	check_island1(char **board, t_map *tmp, int *x, int *y);
-void	check_island2(char **board, int last);
+void			check_island1(char **board, t_map *tmp, int *x, int *y);
+void			check_island2(char **board, int last);
 
 /* ./parsing/elements_init.c */
 
-void	elements_cnt_init(int elements_cnt[]);
-void	check_path(t_info *info, char *line, int elements_cnt[]);
-void	check_f_rgb(t_info *info, char *line, int elements_cnt[]);
-void	check_c_rgb(t_info *info, char *line, int elements_cnt[]);
-void	elements_init(t_info *info);
+void			elements_cnt_init(int elements_cnt[]);
+void			check_path(t_info *info, char *line, int elements_cnt[]);
+void			check_f_rgb(t_info *info, char *line, int elements_cnt[]);
+void			check_c_rgb(t_info *info, char *line, int elements_cnt[]);
+void			elements_init(t_info *info);
 
 /* ./parsing/check_wall.c */
 
-void	check_side(t_map *map, int i, int j, int last);
-void	check_closed(t_map *map, int i, int j, int last);
-void	recursion(char **board, int x, int y, int last);
-void	check_island(t_map *map, int i, int last);
-void	check_wall(t_map *map);
+void			check_side(t_map *map, int i, int j, int last);
+void			check_closed(t_map *map, int i, int j, int last);
+void			recursion(char **board, int x, int y, int last);
+void			check_island(t_map *map, int i, int last);
+void			check_wall(t_map *map);
 
 /* ./parsing/info_init.c */
 
-void	check_char(t_map *map, int player_cnt);
-void	info_init(t_info *info, char *filename);
+void			check_char(t_map *map, int player_cnt);
+void			info_init(t_info *info, char *filename);
 
 /* ./parsing/map_init.c */
 
-int		check_validity(char *line);
-void	check_empty_line(t_map *map);
-void	map_start(t_info *info);
-void	map_init(t_info *info);
+int				check_validity(char *line);
+void			check_empty_line(t_map *map);
+void			map_start(t_info *info);
+void			map_init(t_info *info);
 
 /* ./parsing/game_init.c */
-void	free_info_map(t_info *info);
-void	copy_map(t_info	*info, t_game *game);
-void	copy_texture(t_info *info, t_game *game);
-void	init_map(t_info *info, t_game *game);
+void			free_info_map(t_info *info);
+void			copy_map(t_info	*info, t_game *game);
+void			copy_texture(t_info *info, t_game *game);
+void			init_map(t_info *info, t_game *game);
 
 /* ./get_next_line/get_next_line_utils.c */
 
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char *s1);
+size_t			ft_strlen(const char *s);
+char			*ft_strchr(const char *s, int c);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strdup(char *s1);
 
 /* ./get_next_line/get_next_line.c */
 
-char	*get_next_line(int fd);
+char			*get_next_line(int fd);
 
 /* ./error/exit_error.c */
 
-char	*get_msg_by_errno(int errno);
-void	exit_error(int errno);
+char			*get_msg_by_errno(int errno);
+void			exit_error(int errno);
 
-void	set_ray_direction(t_game *game);
-void	set_player_direction(t_game *game, int direction);
-void	set_map_position(t_game *game);
-void	set_delta_distance(t_game *game);
-void	set_step(t_game *game);
-void	set_side_distance(t_game *game);
-void	dda(t_game *game);
+void			set_ray_direction(t_game *game);
+void			set_player_direction(t_game *game, int direction);
+void			set_map_position(t_game *game);
+void			set_delta_distance(t_game *game);
+void			set_step(t_game *game);
+void			set_side_distance(t_game *game);
+void			dda(t_game *game);
 
-void	init_game_mlx(t_game *game);
-void	init_game_textures(t_game *game);
-void	init_game_ray_condition(t_game *game);
-void	set_img_file_and_data(t_game *game, int direction);
+void			init_game_mlx(t_game *game);
+void			init_game_textures(t_game *game);
+void			init_game_ray_condition(t_game *game);
+void			set_img_file_and_data(t_game *game, int direction);
 
-int		key_press(int key_code, t_game *game);
-int		key_release(int key_code, t_game *game);
-
-
+int				key_press(int key_code, t_game *game);
+int				key_release(int key_code, t_game *game);
 
 void			put_pixel(t_game *game, int x, int y, int color);
 unsigned int	get_color(t_game *game, int direction);
@@ -278,7 +275,6 @@ int				run_game(t_game *game);
 void			put_pixel(t_game *game, int x, int y, int color);
 void			draw_vertical(t_game *game, int x);
 void			raycast(t_game *game);
-
 int				read_keys_and_move(t_game *game);
 void			set_draw_range(t_game *game);
 void			calculate_texture(t_game *game);
