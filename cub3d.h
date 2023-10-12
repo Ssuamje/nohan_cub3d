@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 19:27:13 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:35:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define READ_MAP 1
 # define FILLED 1
 # define UNFILLED 0
-# define HORIZONTAL 0
-# define VERTICAL 1
 # define NO_MORE_TO_READ NULL
 
 # define MOVE_SPEED 0.035

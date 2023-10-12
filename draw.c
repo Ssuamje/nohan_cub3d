@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:04:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/11 18:40:26 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/12 16:51:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	set_draw_buffer(t_game *game, int x)
 	{
 		game->wall_texture_y = (int)game->texture_pos;
 		game->texture_pos += game->step_texture;
-		if (game->side == HORIZONTAL && game->ray_dir.x > 0)
+		if (game->side == 0 && game->ray_dir.x > 0)
 			game->color = get_color(game, NORTH);
-		if (game->side == HORIZONTAL && game->ray_dir.x < 0)
+		if (game->side == 0 && game->ray_dir.x < 0)
 			game->color = get_color(game, SOUTH);
-		if (game->side == VERTICAL && game->ray_dir.y > 0)
+		if (game->side == 1 && game->ray_dir.y > 0)
 			game->color = get_color(game, WEST);
-		if (game->side == VERTICAL && game->ray_dir.y < 0)
+		if (game->side == 1 && game->ray_dir.y < 0)
 			game->color = get_color(game, EAST);
 		game->draw_buffer[y][x] = game->color;
 		y++;
@@ -74,16 +74,24 @@ unsigned int	get_color(t_game *game, int direction)
 	return (color);
 }
 
+/**
+ * hit한 ray에 대해서 render할 텍스처를 계산하는 함수.
+ * 
+ * wall_x는 ray가 면에 닿은 지점의 좌표이다. (ray_dir * perp_wall_dist)
+ * wall_texture_x는 텍스쳐의 x좌표이다. (wall_x * 텍스쳐의 가로길이)
+ * step은 텍스쳐의 한 단위를 계산하기 위한 값이다. (텍스쳐의 세로길이 / line_height)
+ * texture_pos는 텍스쳐의 y좌표이다. (draw_start * step)
+*/
 void	calculate_texture(t_game *game)
 {
-	if (game->side == HORIZONTAL)
+	if (game->side == 0)
 		game->wall_x = game->pos.y + game->perp_wall_dist * game->ray_dir.y;
 	else
 		game->wall_x = game->pos.x + game->perp_wall_dist * game->ray_dir.x;
 	game->wall_x -= floor(game->wall_x);
 	game->wall_texture_x = (int)(game->wall_x * (double)TEXTURE_WIDTH);
-	if ((game->side == HORIZONTAL && game->ray_dir.x > 0)
-		|| (game->side == VERTICAL && game->ray_dir.y < 0))
+	if ((game->side == 0 && game->ray_dir.x > 0)
+		|| (game->side == 1 && game->ray_dir.y < 0))
 		game->wall_texture_x = TEXTURE_WIDTH - game->wall_texture_x - 1;
 	game->step_texture = 1.0 * TEXTURE_HEIGHT / game->line_height;
 	game->texture_pos = (game->draw_start - SCREEN_HEIGHT / 2 + \
