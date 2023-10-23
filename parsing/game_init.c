@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 18:21:07 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/23 21:09:20 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,4 @@ void	init_map(t_info *info, t_game *game)
 	copy_texture(info, game);
 	game->ceiling = rgb_to_hex(info->c_rgb[0], info->c_rgb[1], info->c_rgb[2]);
 	game->floor = rgb_to_hex(info->f_rgb[0], info->f_rgb[1], info->f_rgb[2]);
-	printf("%06X and %06X\n", game->ceiling, game->floor);
 }
-	// free(game->texture[NORTH]);
-	// free(game->texture[SOUTH]);
-	// free(game->texture[EAST]);
-	// free(game->texture[WEST]);
-	// for (int i = 0; i < game->map_col; i++)
-	// 	free(game->map[i]);
-	// free(game->map);

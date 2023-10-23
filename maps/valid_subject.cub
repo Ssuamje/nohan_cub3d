@@ -2,9 +2,9 @@ NO ./textures/haru_north.xpm
 SO ./textures/haru_south.xpm
 WE ./textures/odeok_west.xpm
 EA ./textures/odeok_east.xpm
-
 F 220,100,0
 C 225,30,0
+
 
          1111111111111111111111111
          1000000000110000000000001
