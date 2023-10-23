@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/12 17:35:26 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/23 18:40:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # ifndef TEXTURE_HEIGHT
 #  define TEXTURE_HEIGHT 242
 # endif
+
+# define RED_X_BUTTON 17
 
 enum	e_errno{
 	ERR_ELEM_INVALID,
@@ -108,7 +110,7 @@ enum e_key_masks
 {
 	MASK_PRESS = 1L<<0,
 	MASK_RELEASE = 1L<<1,
-	MASK_EXIT = 1L<<17,
+	MASK_EXIT = 1L<<2,
 };
 
 typedef struct s_info
@@ -254,6 +256,8 @@ char			*get_next_line(int fd);
 
 char			*get_msg_by_errno(int errno);
 void			exit_error(int errno);
+int 			exit_game(void); 
+
 
 void			set_ray_direction(t_game *game);
 void			set_player_direction(t_game *game, int direction);
