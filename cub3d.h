@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/23 18:40:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 12:22:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,8 +256,7 @@ char			*get_next_line(int fd);
 
 char			*get_msg_by_errno(int errno);
 void			exit_error(int errno);
-int 			exit_game(void); 
-
+int				exit_game(void);
 
 void			set_ray_direction(t_game *game);
 void			set_player_direction(t_game *game, int direction);
