@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:49:40 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/24 12:22:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 13:31:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,8 @@ void			free_info_map(t_info *info);
 void			copy_map(t_info	*info, t_game *game);
 void			copy_texture(t_info *info, t_game *game);
 void			init_map(t_info *info, t_game *game);
+void			put_path_if_valid(char **path_ptr, char *line, int elements_cnt);
+
 
 /* ./get_next_line/get_next_line_utils.c */
 

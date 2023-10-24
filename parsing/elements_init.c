@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/11 18:47:24 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:31:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ void	check_path(t_info *info, char *line, int elements_cnt[])
 {
 	if (!ft_strncmp("NO ", line, 3))
 	{
-		info->north_path = ft_linedup(line + 3);
-		check_path_valid(info->north_path);
 		elements_cnt[0] += FILLED;
+		put_path_if_valid(&info->north_path, line, elements_cnt[0]);
+		check_path_valid(info->north_path);
 	}
 	else if (!ft_strncmp("SO ", line, 3))
 	{
-		info->south_path = ft_linedup(line + 3);
-		check_path_valid(info->south_path);
 		elements_cnt[1] += FILLED;
+		put_path_if_valid(&info->south_path, line, elements_cnt[1]);
+		check_path_valid(info->south_path);
 	}
 	else if (!ft_strncmp("WE ", line, 3))
 	{
-		info->west_path = ft_linedup(line + 3);
-		check_path_valid(info->west_path);
 		elements_cnt[2] += FILLED;
+		put_path_if_valid(&info->west_path, line, elements_cnt[2]);
+		check_path_valid(info->west_path);
 	}
 	else if (!ft_strncmp("EA ", line, 3))
 	{
-		info->east_path = ft_linedup(line + 3);
-		check_path_valid(info->east_path);
 		elements_cnt[3] += FILLED;
+		put_path_if_valid(&info->east_path, line, elements_cnt[3]);
+		check_path_valid(info->east_path);
 	}
 }
 
