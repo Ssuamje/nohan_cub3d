@@ -6,23 +6,17 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:42:17 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/24 13:31:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 13:39:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	leaks(void)
-{
-	system("leaks cub3D");
-}
 
 int	main(int ac, char **av)
 {
 	t_info	info;
 	t_game	game;
 
-	atexit(leaks);
 	if (ac != 2 || is_extension_valid(av[1]))
 		exit_error(ERR_ARG);
 	info_init(&info, av[1]);
