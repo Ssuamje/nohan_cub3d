@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/08 08:47:36 by sanan             #+#    #+#              #
-#    Updated: 2023/10/11 18:23:37 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/10/24 16:10:20 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ all : $(NAME)
 $(NAME) : $(OBJS) $(LIB_MLX)
 	@$(ECHO) $(CYAN) 🐶 assembling $(GREEN) $@
 	@$(CC) $(WFLAGS) $(SRCS) $(INCLUDE) $(LIB_MLX) $(MLX_LINK) -o $(NAME)
-	@mv $(LIB_MLX) ./$(notdir $(LIB_MLX))
+	@cp $(LIB_MLX) ./$(notdir $(LIB_MLX))
 
 %.o : %.c
 	@$(ECHO) $(BLUE) 🐶 compiling $(GREEN) $<
