@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:51:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/24 13:31:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 13:36:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	check_cases(t_map *tmp, char c, int i)
 		exit_error(ERR_WALL_INVALID);
 }
 
-void	put_path_if_valid(char **path_ptr, char *line, int elements_cnt)
+void	put_path_if_valid(char **path_ptr, char *line, int cnt)
 {
-	if (elements_cnt > FILLED)
+	if (cnt > FILLED)
 		exit_error(ERR_ELEM_INVALID);
 	else
 		*path_ptr = ft_linedup(line + 3);
