@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 13:59:42 by sanan             #+#    #+#             */
-/*   Updated: 2023/10/23 18:39:57 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 12:21:53 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	key_release(int key_code, t_game *game)
 	return (1);
 }
 
-int exit_game(void) {
+int	exit_game(void)
+{
 	exit(0);
 }
