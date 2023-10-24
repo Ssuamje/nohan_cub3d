@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 11:08:01 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/10/24 13:31:01 by sanan            ###   ########.fr       */
+/*   Updated: 2023/10/24 13:34:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	check_f_rgb(t_info *info, char *line, int elements_cnt[])
 	i = -1;
 	if (!ft_strncmp("F ", line, 2))
 	{
+		if (++elements_cnt[4] > FILLED)
+			exit_error(ERR_ELEM_INVALID);
 		check_comma(line + 2);
 		tmp_rgb = ft_split(line + 2, ',');
 		if (tmp_rgb[3] != NULL)
@@ -71,7 +73,6 @@ void	check_f_rgb(t_info *info, char *line, int elements_cnt[])
 		while (++i < 3)
 			free(tmp_rgb[i]);
 		free(tmp_rgb);
-		elements_cnt[4] += FILLED;
 	}
 }
 
@@ -83,6 +84,8 @@ void	check_c_rgb(t_info *info, char *line, int elements_cnt[])
 	i = -1;
 	if (!ft_strncmp("C ", line, 2))
 	{
+		if (++elements_cnt[5] > FILLED)
+			exit_error(ERR_ELEM_INVALID);
 		check_comma(line + 2);
 		tmp_rgb = ft_split(line + 2, ',');
 		if (tmp_rgb[3] != NULL)
@@ -97,7 +100,6 @@ void	check_c_rgb(t_info *info, char *line, int elements_cnt[])
 		while (++i < 3)
 			free(tmp_rgb[i]);
 		free(tmp_rgb);
-		elements_cnt[5] += FILLED;
 	}
 }
 
